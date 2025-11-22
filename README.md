@@ -1,6 +1,6 @@
 # Simple Flask Website
 
-A small Flask website created by Xangey to experiment with Python, HTML, and CSS.
+A small Flask website created by me to experiment with Python, HTML, and CSS.
 
 ## Features
 
@@ -30,7 +30,7 @@ website/
 
 ```bash
 python3 -m pip install flask
-````
+```
 
 ### Run the website locally
 
