@@ -12,7 +12,7 @@ A small Flask website created by me to experiment with Python, HTML, and CSS.
 ## Project Structure
 
 ```
-website/
+.
 ├── LICENSE
 ├── README.md
 ├── app.py
@@ -21,7 +21,6 @@ website/
 └── templates
     ├── about.html
     └── index.html
-
 ```
 
 ## Getting Started
