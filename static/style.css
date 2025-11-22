@@ -98,6 +98,19 @@ p {
     background: #cc5205;
 }
 
+.btn-d {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #5562ea;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn-d:hover {
+    background: #3b44b1;
+}
+
 .content-section {
     background: white;
     padding: 30px;
