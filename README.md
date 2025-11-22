@@ -13,6 +13,7 @@ A small Flask website created by Xangey to experiment with Python, HTML, and CSS
 
 ```
 website/
+├── LICENSE
 ├── README.md
 ├── app.py
 ├── static
