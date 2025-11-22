@@ -1,12 +1,32 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Home - Xangey's Website</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    </head>
-    <body>
-        <h1>Welcome to this simple website!</h1>
-        <p>This is a tiny Flask project to play with Python and GitHub.</p>
-        <a href="/about">Go to About page</a>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - xangey's Website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">xangey_fun</div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Welcome to my website!</h1>
+            <p>A creative playground for experimenting with Python, Flask, and web development.</p>
+            <a href="/about" class="btn">Learn More About Me</a>
+        </section>
+    </main>
+
+    <footer class="container">
+        <p>&copy; 2025 Xangey's Website.</p>
+    </footer>
+</body>
 </html>
