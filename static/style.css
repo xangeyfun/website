@@ -85,6 +85,19 @@ p {
     background: #0056b3;
 }
 
+.btn-r {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #fa6506;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn-r:hover {
+    background: #cc5205;
+}
+
 .content-section {
     background: white;
     padding: 30px;
