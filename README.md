@@ -34,3 +34,7 @@ Visit `http://localhost:5000`.
 - BSOD, shutdown screen, screensaver, and other nostalgic simulations
 - Run dialog (Win+R) with various commands
 - Easter eggs throughout
+
+## Note
+
+I used AI to help implement parts of the frontend because frontend development is not my strongest area. The backend, architecture, and core functionality were built by me.
