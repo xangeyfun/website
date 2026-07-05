@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>401 - Unauthorized</title>
+        <meta name="robots" content="noindex">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="icon" href="{{ url_for('static', filename='Images/favicon.png') }}" type="image/png">
+    </head>
+    <body>
+        <div class="container">
+            <h1>401</h1>
+            <p class="bio" id="reason">coming up with an excuse...</p>
+            <div class="buttons">
+                <a href="/" class="btn" aria-label="Home">
+                    <img src="{{ url_for('static', filename='Images/home.png') }}" alt="Home">
+                </a>
+            </div>
+        </div>
+        <script>
+            const excuses=[
+                "You shall not pass!",
+                "Access denied. Go away.",
+                "This page is for authorized eyes only.",
+                "Did you try turning it off and on again?",
+                "Error 401: Identity crisis."
+            ];
+            document.getElementById("reason").textContent = excuses[Math.floor(Math.random() * excuses.length)];
+        </script>
+    </body>
+</html>

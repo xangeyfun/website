@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>AI Oracle Calculator</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/calc.css') }}">
+        <meta property="og:title" content="AI Oracle Calculator">
+        <meta property="og:description" content="Consult the quantum math AI">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://xangey.dev/calc">
+        <meta property="og:image" content="{{ url_for('static', filename='Images/favicon2.png') }}">
+        <link rel="icon" href="{{ url_for('static', filename='Images/favicon2.png') }}" type="image/png">
+    </head>
+
+    <body>
+
+    <div class="container">
+
+        <h1>AI Oracle Calculator</h1>
+
+        <div class="metrics">
+            <div>CPU: <span id="cpuMeter">0%</span></div>
+            <div>RAM: <span id="ramMeter">0%</span></div>
+        </div>
+
+        <div class="inputs">
+            <input id="num1" placeholder="first number">
+            <input id="num2" placeholder="second number">
+            <input id="operator" placeholder="operator (+ - * /)">
+            <button id="calcBtn">Consult AI</button>
+        </div>
+
+        <div class="terminal-wrapper">
+            <div id="terminal"></div>
+        </div>
+
+        <div class="progressbar">
+            <div id="progress"></div>
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    </body>
+</html>

@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Xangey | Windows XP</title>
+  <meta property="og:title" content="Xangey | Windows XP">
+  <meta property="og:description" content="Welcome to Xangey's desktop - a Windows XP inspired experience">
+  <meta property="og:image" content="https://xangey.dev/static/Images/pfp.png">
+  <meta property="og:url" content="https://xangey.dev">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Xangey | Windows XP">
+  <meta name="twitter:description" content="Welcome to Xangey's desktop - a Windows XP inspired experience">
+  <meta name="twitter:image" content="https://xangey.dev/static/Images/pfp.png">
+  <meta name="description" content="Xangey's personal website - a Windows XP desktop experience">
+  <meta name="author" content="Xangey">
+  <link rel="icon" href="{{ url_for('static', filename='Images/favicon.png') }}" type="image/png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/xp.css') }}">
+</head>
+<body>
+  <div id="desktop">
+
+    <!-- BOOT SCREEN -->
+    <div id="boot-screen">
+      <div class="boot-content">
+        <div class="boot-logo">
+          <svg viewBox="0 0 260 80" class="boot-flag">
+            <rect x="0" y="0" width="65" height="80" rx="4" fill="#ff4500" opacity="0.85"/>
+            <rect x="67" y="0" width="63" height="80" rx="4" fill="#32cd32" opacity="0.85"/>
+            <rect x="132" y="0" width="63" height="80" rx="4" fill="#4169e1" opacity="0.85"/>
+            <rect x="197" y="0" width="63" height="80" rx="4" fill="#ffd700" opacity="0.85"/>
+          </svg>
+        </div>
+        <div class="boot-title">Microsoft<sup>&reg;</sup> Windows<sup>&reg;</sup> XP</div>
+        <div class="boot-subtitle">Xangey Edition</div>
+        <div class="boot-progress-wrap">
+          <div class="boot-progress-track">
+            <div class="boot-progress-bar" id="boot-progress-bar"></div>
+          </div>
+        </div>
+        <div class="boot-status" id="boot-status">Loading your desktop...</div>
+      </div>
+    </div>
+
+    <!-- WALLPAPER -->
+    <div id="wallpaper"></div>
+
+    <!-- DESKTOP ICONS -->
+    <div id="desktop-icons">
+      <button class="desktop-icon" data-window="my-computer" title="My Computer">
+        <div class="icon-img">
+          <svg viewBox="0 0 48 48"><rect x="4" y="6" width="40" height="28" rx="2" fill="#245edc"/><rect x="4" y="6" width="40" height="24" rx="2" fill="#3a8df5"/><rect x="6" y="8" width="36" height="20" rx="1" fill="#fff"/><rect x="12" y="28" width="24" height="3" rx="1" fill="#245edc"/><rect x="8" y="34" width="32" height="4" rx="1" fill="#c0c0c0"/><rect x="2" y="38" width="44" height="4" rx="1" fill="#a0a0a0"/><rect x="20" y="42" width="8" height="4" rx="1" fill="#808080"/></svg>
+        </div>
+        <span class="icon-label">My Computer</span>
+      </button>
+      <button class="desktop-icon" data-window="about" title="About Me">
+        <div class="icon-img">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="14" r="8" fill="#ffd700"/><circle cx="24" cy="14" r="6" fill="#fff8dc"/><path d="M12 40 C12 28 36 28 36 40" fill="#245edc"/><path d="M14 40 C14 30 34 30 34 40" fill="#3a8df5"/></svg>
+        </div>
+        <span class="icon-label">About Me</span>
+      </button>
+      <button class="desktop-icon" data-window="projects" title="Projects">
+        <div class="icon-img">
+          <svg viewBox="0 0 48 48"><rect x="6" y="8" width="36" height="26" rx="2" fill="#3a8df5"/><rect x="8" y="10" width="32" height="22" rx="1" fill="#fff"/><rect x="12" y="18" width="10" height="2" fill="#3a8df5"/><rect x="12" y="22" width="18" height="2" fill="#3a8df5"/><rect x="12" y="26" width="14" height="2" fill="#3a8df5"/><rect x="6" y="34" width="36" height="4" rx="1" fill="#c0c0c0"/><rect x="2" y="38" width="44" height="4" rx="1" fill="#a0a0a0"/></svg>
+        </div>
+        <span class="icon-label">Projects</span>
+      </button>
+      <button class="desktop-icon" data-window="socials" title="Socials">
+        <div class="icon-img">
+          <svg viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="28" rx="3" fill="#ffd700"/><rect x="8" y="12" width="32" height="24" rx="2" fill="#fff8dc"/><path d="M6 14 L24 28 L42 14" stroke="#ffd700" stroke-width="2" fill="none"/><circle cx="24" cy="26" r="3" fill="#ffd700"/></svg>
+        </div>
+        <span class="icon-label">Contact</span>
+      </button>
+      <button class="desktop-icon" data-window="cmd" title="Command Prompt">
+        <div class="icon-img">
+          <svg viewBox="0 0 48 48"><rect x="4" y="4" width="40" height="40" rx="2" fill="#111"/><rect x="6" y="6" width="36" height="36" fill="#000"/><text x="24" y="28" fill="#c0c0c0" font-size="10" font-family="monospace" font-weight="bold" text-anchor="middle">C:\&gt;_</text></svg>
+        </div>
+        <span class="icon-label">Command Prompt</span>
+      </button>
+      <button class="desktop-icon" data-window="paint" title="Paint">
+        <div class="icon-img">
+          <svg viewBox="0 0 48 48"><rect x="4" y="4" width="40" height="40" rx="3" fill="#fff"/><rect x="6" y="6" width="36" height="36" rx="2" fill="#f0f0f0"/><circle cx="16" cy="14" r="5" fill="#ff4500"/><circle cx="28" cy="20" r="6" fill="#4169e1"/><rect x="10" y="24" width="12" height="14" rx="2" fill="#32cd32"/><rect x="26" y="28" width="14" height="10" rx="2" fill="#ffd700"/><rect x="8" y="38" width="32" height="4" rx="1" fill="#c0c0c0"/></svg>
+        </div>
+        <span class="icon-label">Paint</span>
+      </button>
+      <button class="desktop-icon" data-window="notepad" title="Notepad">
+        <div class="icon-img">
+          <svg viewBox="0 0 48 48"><rect x="6" y="4" width="36" height="40" rx="2" fill="#fff"/><rect x="6" y="4" width="36" height="8" rx="2" fill="#245edc"/><rect x="10" y="18" width="26" height="2" fill="#bbb"/><rect x="10" y="24" width="20" height="2" fill="#bbb"/><rect x="10" y="30" width="22" height="2" fill="#bbb"/><rect x="10" y="36" width="16" height="2" fill="#bbb"/></svg>
+        </div>
+        <span class="icon-label">Notepad</span>
+      </button>
+      <button class="desktop-icon" data-window="recycle" title="Recycle Bin">
+        <div class="icon-img">
+          <svg viewBox="0 0 48 48"><path d="M16 8 L18 4 L30 4 L32 8" fill="#a0a0a0"/><rect x="10" y="8" width="28" height="34" rx="2" fill="#c0c0c0"/><rect x="12" y="8" width="24" height="6" fill="#a0a0a0"/><rect x="16" y="14" width="16" height="2" fill="#808080"/></svg>
+        </div>
+        <span class="icon-label">Recycle Bin</span>
+      </button>
+    </div>
+
+    <!-- WINDOWS -->
+    <div id="windows-container">
+
+      <!-- About Me -->
+      <div class="window" data-window="about" data-x="80" data-y="50" data-w="580" data-h="380">
+        <div class="window-titlebar">
+          <div class="window-title">
+            <svg viewBox="0 0 16 16" class="window-title-icon"><circle cx="8" cy="5" r="3" fill="#ffd700"/><circle cx="8" cy="5" r="2" fill="#fff8dc"/><path d="M4 14 C4 10 12 10 12 14" fill="#245edc"/><path d="M5 14 C5 11 11 11 11 14" fill="#3a8df5"/></svg>
+            <span>About Me</span>
+          </div>
+          <div class="window-controls">
+            <button class="win-btn minimize" aria-label="Minimize">_</button>
+            <button class="win-btn maximize" aria-label="Maximize">□</button>
+            <button class="win-btn close" aria-label="Close">✕</button>
+          </div>
+        </div>
+        <div class="window-body">
+          <div class="about-wrap">
+            <div class="about-left">
+              <img src="{{ url_for('static', filename='Images/pfp.png') }}" alt="Xangey" class="about-pfp">
+              <h2 class="about-name">Xangey</h2>
+              <div class="about-tags">
+                <span class="tag">he/him</span>
+                <span class="tag">🇳🇱</span>
+                <span class="tag">16</span>
+              </div>
+              <div class="about-desc">
+                <div class="about-section">
+                  <h3>User Info</h3>
+                  <p>i like building things with python, running experiments on my servers, and turning ideas into working code.</p>
+                </div>
+                <div class="about-section">
+                  <h3>Languages</h3>
+                  <div class="lang-list">
+                    <img src="{{ url_for('static', filename='Images/python.png') }}" alt="Python" title="Python">
+                    <img src="{{ url_for('static', filename='Images/c.png') }}" alt="C" title="C">
+                    <img src="{{ url_for('static', filename='Images/sql.png') }}" alt="SQL" title="SQL">
+                    <img src="{{ url_for('static', filename='Images/html.png') }}" alt="HTML" title="HTML">
+                    <img src="{{ url_for('static', filename='Images/css.png') }}" alt="CSS" title="CSS">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="about-right">
+              <div class="about-section">
+                <h3>Skills</h3>
+                <div class="skill-bar"><span class="skill-label">Python</span><div class="skill-track"><span class="skill-fill" style="width:92%"></span></div></div>
+                <div class="skill-bar"><span class="skill-label">C</span><div class="skill-track"><span class="skill-fill" style="width:35%"></span></div></div>
+                <div class="skill-bar"><span class="skill-label">SQL</span><div class="skill-track"><span class="skill-fill" style="width:55%"></span></div></div>
+                <div class="skill-bar"><span class="skill-label">HTML</span><div class="skill-track"><span class="skill-fill" style="width:30%"></span></div></div>
+                <div class="skill-bar"><span class="skill-label">CSS</span><div class="skill-track"><span class="skill-fill" style="width:25%"></span></div></div>
+              </div>
+              <div class="about-section">
+                <h3>System</h3>
+                <div class="sys-info"><span>OS:</span><span>Windows XP</span></div>
+                <div class="sys-info"><span>User:</span><span>Xangey</span></div>
+                <div class="sys-info"><span>Location:</span><span>Netherlands</span></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Projects -->
+      <div class="window" data-window="projects" data-x="160" data-y="110" data-w="480" data-h="340">
+        <div class="window-titlebar">
+          <div class="window-title">
+            <svg viewBox="0 0 16 16" class="window-title-icon"><rect x="2" y="3" width="12" height="9" rx="1" fill="#3a8df5"/><rect x="3" y="4" width="10" height="7" rx="0.5" fill="#fff"/><rect x="4" y="7" width="3" height="1" fill="#3a8df5"/><rect x="4" y="9" width="6" height="1" fill="#3a8df5"/><rect x="2" y="12" width="12" height="1.5" fill="#c0c0c0"/></svg>
+            <span>Projects</span>
+          </div>
+          <div class="window-controls">
+            <button class="win-btn minimize" aria-label="Minimize">_</button>
+            <button class="win-btn maximize" aria-label="Maximize">□</button>
+            <button class="win-btn close" aria-label="Close">✕</button>
+          </div>
+        </div>
+        <div class="window-body">
+          <div class="projects-content">
+            <a href="https://voidwave.xangey.dev" target="_blank" rel="noopener noreferrer" class="project-card" style="text-decoration:none;color:inherit">
+              <div class="project-icon">
+                <img src="{{ url_for('static', filename='Images/voidwave-icon.png') }}" alt="VoidWave">
+              </div>
+              <div class="project-info">
+                <h3>VoidWave</h3>
+                <p>A Discord leveling bot with XP, leaderboards, AI chat &amp; web profiles</p>
+                <span class="project-status">Active Development</span>
+              </div>
+            </a>
+            <a href="https://github.com/xangeyfun/learning-c" target="_blank" rel="noopener noreferrer" class="project-card" style="text-decoration:none;color:inherit">
+              <div class="project-icon">
+                <svg viewBox="0 0 32 32"><rect x="4" y="4" width="24" height="24" rx="4" fill="#245edc"/><text x="8" y="22" fill="#fff" font-size="14" font-weight="bold" font-family="monospace">C</text></svg>
+              </div>
+              <div class="project-info">
+                <h3>Learning C</h3>
+                <p>Expanding into lower-level programming</p>
+                <span class="project-status">In Progress</span>
+              </div>
+            </a>
+            <div class="project-card">
+              <div class="project-icon">
+                <svg viewBox="0 0 32 32"><rect x="6" y="6" width="20" height="20" rx="3" fill="#32cd32" opacity="0.8"/><circle cx="16" cy="14" r="4" fill="#fff"/><rect x="14" y="14" width="4" height="8" fill="#fff"/></svg>
+              </div>
+              <div class="project-info">
+                <h3>Server Experiments</h3>
+                <p>Running various experiments on personal servers</p>
+                <span class="project-status">Ongoing</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Socials -->
+      <div class="window" data-window="socials" data-x="200" data-y="100" data-w="420" data-h="400">
+        <div class="window-titlebar">
+          <div class="window-title">
+            <svg viewBox="0 0 16 16" class="window-title-icon"><rect x="2" y="4" width="12" height="9" rx="1.5" fill="#ffd700"/><rect x="3" y="5" width="10" height="7" rx="1" fill="#fff8dc"/><path d="M2 6 L8 11 L14 6" stroke="#ffd700" stroke-width="1" fill="none"/></svg>
+            <span>Socials</span>
+          </div>
+          <div class="window-controls">
+            <button class="win-btn minimize" aria-label="Minimize">_</button>
+            <button class="win-btn maximize" aria-label="Maximize">□</button>
+            <button class="win-btn close" aria-label="Close">✕</button>
+          </div>
+        </div>
+        <div class="window-body">
+          <div class="contact-wrap">
+            <div class="discord-profile-card" onclick="window.xp.copyDiscord()" title="Click to copy username">
+              <div class="discord-card-top">
+                <div class="discord-avatar-wrap-lg">
+                  <img id="discord-avatar" src="https://cdn.discordapp.com/avatars/996771607630585856/fa7d700452306f278ea30eb4b6dc5406.png" alt="" class="discord-avatar-lg" loading="lazy">
+                  <span id="discord-status-dot" class="discord-status-dot-lg status-dnd"></span>
+                </div>
+                <div class="discord-card-info">
+                  <div class="discord-card-info-top">
+                    <div>
+                      <span class="discord-card-name" id="discord-card-name">xangey</span>
+                      <span class="discord-card-username" id="discord-card-username">@xangey</span>
+                    </div>
+                    <span class="discord-card-status" id="discord-card-status"></span>
+                  </div>
+                  <span class="discord-card-hint">click to copy username</span>
+                </div>
+              </div>
+              <div id="discord-bubble" class="discord-bubble hidden">
+                <div class="discord-bubble-arrow"></div>
+                <div class="discord-bubble-body">
+                  <div class="discord-bubble-bg" id="discord-bubble-bg"></div>
+                  <div class="discord-bubble-content" id="discord-bubble-content">
+                    <div id="discord-bubble-progress" class="discord-progress-wrap hidden">
+                      <span class="discord-progress-time" id="discord-progress-elapsed">0:00</span>
+                      <div class="discord-progress-track">
+                        <div class="discord-progress-fill" id="discord-progress-fill"></div>
+                      </div>
+                      <span class="discord-progress-time" id="discord-progress-total">0:00</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="contact-divider"><span>Find me on</span></div>
+            <div class="contact-links">
+              <a href="https://github.com/xangeyfun" target="_blank" rel="noopener noreferrer">
+                <img src="{{ url_for('static', filename='Images/github.png') }}" alt="GitHub"> GitHub
+              </a>
+              <a href="https://twitter.com/xangey_fun" target="_blank" rel="noopener noreferrer">
+                <img src="{{ url_for('static', filename='Images/twitter.png') }}" alt="Twitter"> X / Twitter
+              </a>
+              <a href="https://tiktok.com/@xangey_" target="_blank" rel="noopener noreferrer">
+                <img src="{{ url_for('static', filename='Images/TikTok.png') }}" alt="TikTok"> TikTok
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- My Computer (Explorer) -->
+      <div class="window" data-window="my-computer" data-x="140" data-y="40" data-w="560" data-h="420">
+        <div class="window-titlebar">
+          <div class="window-title">
+            <svg viewBox="0 0 16 16" class="window-title-icon"><rect x="1" y="2" width="14" height="10" rx="1.5" fill="#245edc"/><rect x="1" y="2" width="14" height="8" rx="1.5" fill="#3a8df5"/><rect x="2" y="3" width="12" height="7" rx="0.5" fill="#fff"/><rect x="4" y="10" width="8" height="1.5" rx="0.5" fill="#245edc"/><rect x="2" y="12" width="12" height="1.5" fill="#c0c0c0"/><rect x="0" y="13.5" width="16" height="1.5" fill="#a0a0a0"/></svg>
+            <span>My Computer</span>
+          </div>
+          <div class="window-controls">
+            <button class="win-btn minimize" aria-label="Minimize">_</button>
+            <button class="win-btn maximize" aria-label="Maximize">□</button>
+            <button class="win-btn close" aria-label="Close">✕</button>
+          </div>
+        </div>
+        <div class="window-body" style="padding:0;display:flex;flex-direction:column;">
+          <div class="explorer-toolbar">
+            <button class="explorer-back" id="explorer-back" title="Back">←</button>
+            <div class="address-bar">
+              <span class="address-label">Address</span>
+              <div class="address-input" id="explorer-addr">My Computer</div>
+            </div>
+          </div>
+          <div class="explorer-content" id="explorer-content"></div>
+        </div>
+      </div>
+
+      <!-- Command Prompt -->
+      <div class="window" data-window="cmd" data-x="100" data-y="100" data-w="580" data-h="400">
+        <div class="window-titlebar">
+          <div class="window-title">
+            <svg viewBox="0 0 16 16" class="window-title-icon"><rect x="1" y="1" width="14" height="14" rx="1.5" fill="#111"/><rect x="2" y="2" width="12" height="12" fill="#000"/><text x="8" y="11" fill="#c0c0c0" font-size="6" font-family="monospace" text-anchor="middle">CMD</text></svg>
+            <span>C:\WINDOWS\system32\cmd.exe</span>
+          </div>
+          <div class="window-controls">
+            <button class="win-btn minimize" aria-label="Minimize">_</button>
+            <button class="win-btn maximize" aria-label="Maximize">□</button>
+            <button class="win-btn close" aria-label="Close">✕</button>
+          </div>
+        </div>
+        <div class="window-body cmd-body">
+          <div id="cmd-output"></div>
+          <div class="cmd-input-line">
+            <span class="cmd-prompt" id="cmd-prompt">C:\Users\Xangey&gt;</span>
+            <input type="text" id="cmd-input" class="cmd-input" autofocus spellcheck="false" autocomplete="off">
+          </div>
+        </div>
+      </div>
+
+      <!-- Recycle Bin -->
+      <div class="window" data-window="recycle" data-x="180" data-y="120" data-w="480" data-h="340">
+        <div class="window-titlebar">
+          <div class="window-title">
+            <svg viewBox="0 0 16 16" class="window-title-icon"><path d="M5 3 L6 1.5 L10 1.5 L11 3" fill="#a0a0a0"/><rect x="3" y="3" width="10" height="11" rx="1" fill="#c0c0c0"/><rect x="4" y="3" width="8" height="2.5" fill="#a0a0a0"/></svg>
+            <span>Recycle Bin</span>
+          </div>
+          <div class="window-controls">
+            <button class="win-btn minimize" aria-label="Minimize">_</button>
+            <button class="win-btn maximize" aria-label="Maximize">□</button>
+            <button class="win-btn close" aria-label="Close">✕</button>
+          </div>
+        </div>
+        <div class="window-body" style="display:flex;flex-direction:column;">
+          <div class="recycle-toolbar">
+            <button class="recycle-empty" id="recycle-empty">Empty Recycle Bin</button>
+            <button class="recycle-restore" id="recycle-restore">Restore All</button>
+          </div>
+          <div id="recycle-content" class="recycle-content" style="flex:1;"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CONTEXT MENU -->
+    <div id="context-menu" class="hidden">
+      <div class="ctx-item" data-action="refresh">Refresh</div>
+      <div class="ctx-sep"></div>
+      <div class="ctx-item" data-action="view">View</div>
+      <div class="ctx-sep"></div>
+      <div class="ctx-item ctx-sub" data-action="arrange">
+        Arrange Icons By <span class="ctx-arrow">▶</span>
+        <div class="ctx-submenu">
+          <div class="ctx-item" data-action="arrange-name">Name</div>
+          <div class="ctx-item" data-action="arrange-type">Type</div>
+          <div class="ctx-item" data-action="arrange-size">Size</div>
+        </div>
+      </div>
+      <div class="ctx-sep"></div>
+      <div class="ctx-item" data-action="paste">Paste</div>
+      <div class="ctx-item ctx-sub" data-action="new">
+        New <span class="ctx-arrow">▶</span>
+        <div class="ctx-submenu">
+          <div class="ctx-item" data-action="new-folder">Folder</div>
+          <div class="ctx-item" data-action="new-text">Text Document</div>
+          <div class="ctx-item" data-action="new-shortcut">Shortcut</div>
+        </div>
+      </div>
+      <div class="ctx-sep"></div>
+      <div class="ctx-item" data-action="properties">Properties</div>
+    </div>
+
+    <!-- RUN DIALOG -->
+    <div id="run-dialog" class="hidden dialog-overlay">
+      <div class="dialog-box" style="width:380px;">
+        <div class="dialog-titlebar">
+          <span class="dialog-title">Run</span>
+          <button class="win-btn close dialog-close-btn" id="run-close-btn" aria-label="Close">✕</button>
+        </div>
+        <div class="dialog-body" style="flex-direction:column;gap:12px;align-items:stretch;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <svg viewBox="0 0 32 32" style="width:32px;height:32px;flex-shrink:0;"><rect x="4" y="4" width="10" height="10" rx="2" fill="#ff4500"/><rect x="18" y="4" width="10" height="10" rx="2" fill="#32cd32"/><rect x="4" y="18" width="10" height="10" rx="2" fill="#4169e1"/><rect x="18" y="18" width="10" height="10" rx="2" fill="#ffd700"/></svg>
+            <div>
+              <div style="font-size:11px;font-weight:700;margin-bottom:4px;">Type the name of a program, and XP will open it.</div>
+              <div style="font-size:10px;color:#888;">(or just type something fun)</div>
+            </div>
+          </div>
+          <div><span style="font-size:11px;font-weight:700;">Open:</span></div>
+          <div style="display:flex;gap:6px;">
+            <input type="text" id="run-input" class="run-input" placeholder="cmd, about, secret..." spellcheck="false">
+            <button class="dialog-btn" id="run-ok">OK</button>
+            <button class="dialog-btn" id="run-cancel">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- START MENU -->
+    <div id="start-menu" role="menu">
+      <div class="start-left">
+        <div class="start-user">
+          <img src="{{ url_for('static', filename='Images/pfp.png') }}" alt="" class="start-pfp">
+          <span class="start-username">Xangey</span>
+        </div>
+        <div class="start-divider"></div>
+        <div class="start-apps-mini">
+          <span class="start-hdr">Internet</span>
+          <button class="start-app" data-window="ie">
+            <svg viewBox="0 0 16 16" class="start-app-icon"><path d="M11 2.8 A6 6 0 0 1 11 13.2 L8 8 Z" fill="#ea4335"/><path d="M11 13.2 A6 6 0 0 1 2 8 L8 8 Z" fill="#fbbc05"/><path d="M2 8 A6 6 0 0 1 11 2.8 L8 8 Z" fill="#34a853"/><circle cx="8" cy="8" r="2.5" fill="#4285f4"/><circle cx="8" cy="8" r="1.2" fill="#fff"/></svg>
+            <span>Chrome</span>
+          </button>
+          <span class="start-hdr">Xangey</span>
+          <button class="start-app" data-window="about">
+            <svg viewBox="0 0 16 16" class="start-app-icon"><circle cx="8" cy="5" r="3" fill="#fff"/><circle cx="8" cy="5" r="2" fill="#ffd700"/><path d="M4 14 C4 10 12 10 12 14" fill="#fff"/></svg>
+            <span>About Me</span>
+          </button>
+          <button class="start-app" data-window="projects">
+            <svg viewBox="0 0 16 16" class="start-app-icon"><rect x="2" y="3" width="12" height="9" rx="1" fill="#fff"/><rect x="3" y="4" width="10" height="7" rx="0.5" fill="#3a8df5"/></svg>
+            <span>Projects</span>
+          </button>
+          <button class="start-app" data-window="socials">
+            <svg viewBox="0 0 16 16" class="start-app-icon"><rect x="2" y="4" width="12" height="9" rx="1.5" fill="#fff"/><rect x="3" y="5" width="10" height="7" rx="1" fill="#ffd700"/></svg>
+            <span>Socials</span>
+          </button>
+          <span class="start-hdr">System</span>
+          <button class="start-app" data-window="my-computer">
+            <svg viewBox="0 0 16 16" class="start-app-icon"><rect x="1" y="2" width="14" height="10" rx="1.5" fill="#fff"/><rect x="1" y="2" width="14" height="8" rx="1.5" fill="#3a8df5"/></svg>
+            <span>My Computer</span>
+          </button>
+          <button class="start-app" data-window="cmd">
+            <svg viewBox="0 0 16 16" class="start-app-icon"><rect x="1" y="1" width="14" height="14" rx="1.5" fill="#000"/><text x="8" y="11" fill="#c0c0c0" font-size="6" font-family="monospace" text-anchor="middle">CMD</text></svg>
+            <span>CMD</span>
+          </button>
+          <button class="start-app" data-window="notepad">
+            <svg viewBox="0 0 16 16" class="start-app-icon"><rect x="2" y="1" width="12" height="14" rx="1" fill="#fff"/><rect x="2" y="1" width="12" height="3" rx="1" fill="#3a8df5"/><rect x="4" y="6" width="8" height="0.8" fill="#888"/><rect x="4" y="8" width="6" height="0.8" fill="#888"/><rect x="4" y="10" width="7" height="0.8" fill="#888"/></svg>
+            <span>Notepad</span>
+          </button>
+          <button class="start-app" data-window="paint">
+            <svg viewBox="0 0 16 16" class="start-app-icon"><rect x="2" y="2" width="12" height="12" rx="2" fill="#fff"/><rect x="4" y="4" width="8" height="8" rx="1" fill="#3a8df5"/><circle cx="12" cy="4" r="3" fill="#ffd700"/></svg>
+            <span>Paint</span>
+          </button>
+          <button class="start-app" data-window="recycle">
+            <svg viewBox="0 0 16 16" class="start-app-icon"><path d="M5 3 L6 1.5 L10 1.5 L11 3" fill="#fff"/><rect x="3" y="3" width="10" height="11" rx="1" fill="#fff"/></svg>
+            <span>Recycle Bin</span>
+          </button>
+        </div>
+      </div>
+      <div class="start-right">
+        <div class="start-right-inner">
+          <div class="start-right-section">
+            <span class="start-section-title">Links</span>
+            <a href="https://github.com/xangeyfun" target="_blank" rel="noopener noreferrer" class="start-app">
+              <img src="{{ url_for('static', filename='Images/github.png') }}" alt="" class="start-app-icon-img">
+              <span>GitHub</span>
+            </a>
+            <a href="https://twitter.com/xangey_fun" target="_blank" rel="noopener noreferrer" class="start-app">
+              <img src="{{ url_for('static', filename='Images/twitter.png') }}" alt="" class="start-app-icon-img">
+              <span>X / Twitter</span>
+            </a>
+            <a href="https://tiktok.com/@xangey_" target="_blank" rel="noopener noreferrer" class="start-app">
+              <img src="{{ url_for('static', filename='Images/TikTok.png') }}" alt="" class="start-app-icon-img">
+              <span>TikTok</span>
+            </a>
+          </div>
+          <div class="start-right-section">
+            <span class="start-section-title">System</span>
+            <button class="start-app" data-window="wupdate">
+              <svg viewBox="0 0 16 16" class="start-app-icon"><circle cx="8" cy="8" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 3 L8 8 L11 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+              <span>Windows Update</span>
+            </button>
+            <button class="start-app" id="start-run" data-action="run">
+              <svg viewBox="0 0 16 16" class="start-app-icon"><rect x="2" y="2" width="12" height="12" rx="2" fill="#3a8df5"/><text x="4" y="12" fill="#fff" font-size="8" font-weight="bold">⚙</text></svg>
+              <span>Run...</span>
+            </button>
+            <button class="start-app" id="start-shutdown">
+              <svg viewBox="0 0 16 16" class="start-app-icon"><circle cx="8" cy="8" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 3 L8 8" stroke="#ff4500" stroke-width="2"/></svg>
+              <span>Shut Down...</span>
+            </button>
+          </div>
+        </div>
+        <div class="start-footer">
+          <button class="start-app" id="start-logoff">
+            <svg viewBox="0 0 16 16" class="start-app-icon"><path d="M11 3 L14 8 L11 13" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M14 8 L5 8" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span>Log Off Xangey...</span>
+          </button>
+          <button class="start-app" id="start-help">
+            <svg viewBox="0 0 16 16" class="start-app-icon"><circle cx="8" cy="8" r="6" fill="currentColor"/><text x="6" y="11" fill="#3a8df5" font-size="8" font-weight="bold">?</text></svg>
+            <span>Help and Support</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TASKBAR -->
+    <div id="taskbar">
+      <button id="start-btn" aria-label="Start" title="Start">
+        <svg viewBox="0 0 24 24" class="start-logo" aria-hidden="true">
+          <rect x="2" y="2" width="9" height="9" rx="1.5" fill="#ff4500" opacity="0.9"/>
+          <rect x="13" y="2" width="9" height="9" rx="1.5" fill="#32cd32" opacity="0.9"/>
+          <rect x="2" y="13" width="9" height="9" rx="1.5" fill="#4169e1" opacity="0.9"/>
+          <rect x="13" y="13" width="9" height="9" rx="1.5" fill="#ffd700" opacity="0.9"/>
+        </svg>
+        <span>start</span>
+      </button>
+      <div id="taskbar-windows" role="tablist"></div>
+      <div id="system-tray">
+        <div id="tray-icons">
+          <button class="tray-icon" id="tray-sound" title="Sound" aria-label="Toggle sound">
+            <svg viewBox="0 0 16 16" width="16" height="16"><rect x="2" y="6" width="3" height="4" fill="#fff"/><path d="M5 6 L9 3 L9 13 L5 10" fill="#fff"/><path d="M10 6 C12 8 12 8 10 10" stroke="#ccc" stroke-width="1" fill="none"/><path d="M11 4 C14 7 14 9 11 12" stroke="#888" stroke-width="1" fill="none"/></svg>
+          </button>
+          <button class="tray-icon" id="tray-dark" title="Toggle theme">
+            <svg viewBox="0 0 16 16" width="16" height="16"><path d="M8 2 C12 4 12 12 8 14 C12 12 14 8 12 4 C10 2 8 2 8 2" fill="#fff"/></svg>
+          </button>
+          <button class="tray-icon" id="tray-network" title="Network">
+            <svg viewBox="0 0 16 16" width="16" height="16"><rect x="6" y="12" width="4" height="3" fill="#fff"/><rect x="7" y="9" width="2" height="3" fill="#fff"/><path d="M4 8 C4 5 12 5 12 8" stroke="#fff" stroke-width="1" fill="none"/><path d="M2 5 C2 1 14 1 14 5" stroke="#888" stroke-width="1" fill="none"/></svg>
+          </button>
+        </div>
+        <div id="clock" title="Current date and time"></div>
+      </div>
+    </div>
+
+    <!-- WIFI POPUP -->
+    <div id="wifi-popup" class="hidden">
+      <div class="wifi-header">Available Wireless Networks</div>
+      <div class="wifi-list" id="wifi-list"></div>
+      <div class="wifi-footer">
+        <span class="wifi-status" id="wifi-status">Not connected</span>
+      </div>
+    </div>
+
+    <!-- SCREENSAVER -->
+    <div id="screensaver" class="hidden">
+      <div class="ss-wrapper">
+        <div class="ss-logo" id="ss-logo">
+          <svg viewBox="0 0 24 24" class="ss-flag">
+            <rect x="1" y="1" width="10" height="10" rx="2" fill="#ff4500"/>
+            <rect x="12" y="1" width="11" height="10" rx="2" fill="#32cd32"/>
+            <rect x="1" y="12" width="10" height="11" rx="2" fill="#4169e1"/>
+            <rect x="12" y="12" width="11" height="11" rx="2" fill="#ffd700"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- BSOD -->
+    <div id="bsod" class="hidden">
+      <div class="bsod-content">
+        <div class="bsod-header">Windows</div>
+        <div class="bsod-body">
+          <p>A problem has been detected and Windows has been shut down to prevent damage to your computer.</p>
+          <br>
+          <p>The problem seems to be caused by the following file: <strong>SKILL_ISSUE.SYS</strong></p>
+          <br>
+          <p>PAGE_FAULT_IN_NONPAGED_AREA</p>
+          <br>
+          <p>If this is the first time you've seen this screen, don't worry. It's intentional.</p>
+          <br>
+          <p>Technical information:</p>
+          <p>*** STOP: 0x00000042 (0x00000000, 0x00000000, 0x00000000, 0x00000000)</p>
+          <br>
+          <p>*** <span id="bsod-file">SKILL_ISSUE.SYS</span> - Address <span id="bsod-addr">F86E5A89</span> base at F86E5000, DateStamp <span id="bsod-stamp">3b7d5c9f</span></p>
+          <br>
+          <p id="bsod-dump">Beginning dump of physical memory</p>
+          <p id="bsod-progress">Physical memory dump: <span id="bsod-pct">0</span>% complete</p>
+          <br>
+          <p style="opacity:0.6;font-size:11px;">Contact your system administrator or technical support group for further assistance.</p>
+          <p style="opacity:0.4;font-size:10px;margin-top:16px;">Click anywhere to return.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EASTER EGG DIALOG -->
+    <div id="egg-dialog" class="hidden dialog-overlay">
+      <div class="dialog-box">
+        <div class="dialog-titlebar">
+          <span class="dialog-title" id="egg-title">Error</span>
+          <button class="win-btn close dialog-close-btn" id="egg-close-btn" aria-label="Close">✕</button>
+        </div>
+        <div class="dialog-body">
+          <div class="dialog-icon-area">
+            <span class="dialog-icon" id="egg-icon">❌</span>
+          </div>
+          <div class="dialog-text-area" style="white-space:pre-line;">
+            <p id="egg-text">Task failed successfully.</p>
+          </div>
+        </div>
+        <div class="dialog-actions">
+          <button class="dialog-btn" id="egg-ok">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLIPPY -->
+    <div id="clippy" class="hidden">
+      <div class="clippy-bubble">
+        <p id="clippy-text">It looks like you're doing something. Would you like help with that?</p>
+        <button class="clippy-close" id="clippy-close">✕</button>
+      </div>
+      <div class="clippy-body">
+        <img src="{{ url_for('static', filename='Images/clippy.png') }}" alt="Clippy" class="clippy-img">
+      </div>
+    </div>
+
+    <!-- SHUTDOWN SCREEN -->
+    <div id="shutdown-screen" class="hidden">
+      <div class="shutdown-content">
+        <div class="shutdown-logo">
+          <svg viewBox="0 0 48 48" class="shutdown-flag">
+            <rect x="2" y="2" width="20" height="20" rx="3" fill="#ff4500"/>
+            <rect x="26" y="2" width="20" height="20" rx="3" fill="#32cd32"/>
+            <rect x="2" y="26" width="20" height="20" rx="3" fill="#4169e1"/>
+            <rect x="26" y="26" width="20" height="20" rx="3" fill="#ffd700"/>
+          </svg>
+        </div>
+        <div class="shutdown-text">Shutting down...</div>
+        <div class="shutdown-progress">
+          <div class="shutdown-bar" id="shutdown-bar"></div>
+        </div>
+        <div class="shutdown-sub">Please don't turn off your computer. That would be rude.</div>
+        <button id="shutdown-abort" class="dialog-btn">Cancel</button>
+      </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="hidden">
+      <div class="toast-inner">
+        <span id="toast-icon">✅</span>
+        <span id="toast-text">Copied!</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='js/xp.js') }}"></script>
+</body>
+</html>
