@@ -102,6 +102,15 @@ img{-webkit-user-drag:none;user-select:none;pointer-events:none}
 .project-info p{font-size:11px;color:#888;margin-bottom:4px}
 .project-status{font-size:10px;color:#fff;background:var(--xp-highlight);padding:1px 6px;border-radius:3px}
 
+.github-repos{display:flex;flex-direction:column;gap:6px}
+.github-repo-card{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--xp-card-bg);border:1px solid var(--xp-card-border);border-radius:4px;text-decoration:none;color:inherit;transition:background .15s,border-color .15s}
+.github-repo-card:hover{background:#e8e8ff;border-color:var(--xp-highlight)}
+.github-repo-card .github-repo-icon{width:18px;height:18px;flex-shrink:0;object-fit:contain}
+.github-repo-card .project-info h3{font-size:11px}
+.github-repo-card .project-info p{font-size:10px;margin-bottom:0}
+.github-repo-card .project-info .repo-meta{display:flex;gap:8px;margin-top:2px;font-size:9px;color:#999}
+.github-repo-card .project-info .repo-meta span{display:flex;align-items:center;gap:3px}
+
 /* ═══ CONTACT ═══ */
 .contact-wrap{display:flex;flex-direction:column;gap:10px;overflow-y:auto}
 .contact-card{display:flex;align-items:center;gap:12px;padding:14px;background:var(--xp-card-bg);border:1px solid var(--xp-card-border);border-radius:6px;cursor:pointer;transition:background .15s,border-color .15s}
@@ -116,7 +125,7 @@ img{-webkit-user-drag:none;user-select:none;pointer-events:none}
 .contact-links{display:flex;flex-direction:column;gap:6px}
 .contact-links a{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--xp-card-bg);border:1px solid var(--xp-card-border);border-radius:4px;font-size:11px;transition:background .15s,border-color .15s}
 .contact-links a:hover{background:#e8e8ff;border-color:var(--xp-highlight)}
-.contact-links a img{width:20px;height:20px}
+.contact-links a img{width:20px;height:20px;flex-shrink:0}
 .discord-section-header{margin-bottom:-4px}
 .discord-section-header .discord-section-icon{width:16px;height:16px;flex-shrink:0}
 
@@ -341,7 +350,8 @@ img{-webkit-user-drag:none;user-select:none;pointer-events:none}
 .discord-card-info{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}
 .discord-card-info-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
 .discord-card-status{font-size:11px;font-style:italic;color:var(--xp-body-text2);white-space:nowrap;text-align:right;flex-shrink:0;padding-top:1px}
-.discord-card-username{font-size:11px;color:var(--xp-body-text2);line-height:1.3}
+.discord-card-name{font-size:15px;font-weight:700}
+.discord-card-username{display:block;font-size:11px;color:var(--xp-body-text2);line-height:1.3}
 .discord-card-status{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--xp-body-text2);line-height:1.3;margin-top:2px}
 .discord-card-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .discord-card-hint{font-size:9px;color:var(--xp-body-text2);margin-top:1px}

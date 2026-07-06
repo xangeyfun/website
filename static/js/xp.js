@@ -3,6 +3,7 @@
 
   const $ = (s, c) => (c || document).querySelector(s);
   const $$ = (s, c) => Array.from((c || document).querySelectorAll(s));
+  const iconURL = (p) => '/static/' + p;
 
   /* ── State ── */
   const state = {
@@ -2230,6 +2231,47 @@
       });
   }
 
+  /* ── GitHub Repos ── */
+  function fetchGitHubRepos() {
+    var container = $('#github-repos');
+    if (!container) return;
+    fetch('https://api.github.com/users/xangeyfun/repos?sort=updated&per_page=8')
+      .then(function (r) { return r.json(); })
+      .then(function (repos) {
+        if (!Array.isArray(repos)) return;
+        container.innerHTML = '';
+        repos.forEach(function (repo) {
+          if (repo.fork) return;
+          var langColor = repo.language ? langColors[repo.language] || '#888' : '#888';
+          var card = document.createElement('a');
+          card.href = repo.html_url;
+          card.target = '_blank';
+          card.rel = 'noopener noreferrer';
+          card.className = 'github-repo-card';
+          card.innerHTML =
+            '<img class="github-repo-icon" src="' + iconURL('Images/github.png') + '" alt="">' +
+            '<div class="project-info">' +
+              '<h3>' + repo.name + '</h3>' +
+              '<p>' + (repo.description || '') + '</p>' +
+              '<div class="repo-meta">' +
+                '<span><span style="color:' + langColor + '">●</span> ' + (repo.language || '') + '</span>' +
+                '<span>★ ' + repo.stargazers_count + '</span>' +
+              '</div>' +
+            '</div>';
+          container.appendChild(card);
+        });
+      })
+      .catch(function () { /* silently fail */ });
+  }
+
+  var langColors = {
+    Python: '#3572A5', JavaScript: '#f1e05a', TypeScript: '#3178c6',
+    HTML: '#e34c26', CSS: '#563d7c', C: '#555555', 'C++': '#f34b7d',
+    Java: '#b07219', Shell: '#89e051', Ruby: '#701516', Go: '#00ADD8',
+    Rust: '#dea584', PHP: '#4F5D95', Swift: '#ffac45', Kotlin: '#A97BFF',
+    Vue: '#41b883', Svelte: '#ff3e00'
+  };
+
   /* ── Init ── */
   function init() {
     // Collect DOM refs
@@ -2316,6 +2358,9 @@
     // Fetch Discord status
     fetchDiscordStatus();
     setInterval(fetchDiscordStatus, 20000);
+
+    // Fetch GitHub repos
+    fetchGitHubRepos();
 
     // Init systems
     updateClock();
