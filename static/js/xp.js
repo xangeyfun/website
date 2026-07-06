@@ -893,7 +893,7 @@
       });
     });
 
-    // Special items — shutdown button with proximity avoidance
+    // Special items: shutdown button avoids other icons
     if (dom.shutdownBtn) {
       (function () {
         var btn = dom.shutdownBtn;
@@ -2000,7 +2000,7 @@
           statusTextEl.textContent = (customStatus && customStatus.state) ? '\u201C' + customStatus.state + '\u201D' : '';
         }
 
-        // Update activity bubble (below card) — motion stack
+        // Refreshes activity bubble below the card
         var contentEl = dom.discordBubbleContent;
         var bgEl = dom.discordBubbleBg;
         var progressWrap = dom.discordBubbleProgress;
@@ -2160,7 +2160,7 @@
             }
           }
 
-          // Progress bar — nest inside first music activity's text column
+          // Put progress bar inside the first music activity
           if (firstTimestamps) {
             discordActivityTimestamps = firstTimestamps;
             progressWrap.classList.remove('hidden');
