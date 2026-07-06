@@ -766,7 +766,7 @@
           setTimeout(function () {
             self.style.opacity = '';
             self.style.pointerEvents = '';
-          }, 8000);
+          }, 15000);
           return;
         }
 
