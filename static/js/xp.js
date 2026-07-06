@@ -53,6 +53,7 @@
     wallpaperClicks: 0,
     windowHoardingNotified: false,
     closeBtnHoverTimers: {},
+    closeBtnHoverCounts: {},
     f5Count: 0,
     f5Timer: null,
     clippyTimer: null,
@@ -584,7 +585,13 @@
     var closeBtn = win.querySelector('.close');
     var minBtn = win.querySelector('.minimize');
     var maxBtn = win.querySelector('.maximize');
-    if (closeBtn) closeBtn.addEventListener('click', function (e) { e.stopPropagation(); closeWin(name); if (win._updateIntv) clearInterval(win._updateIntv); });
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        showEgg('Save your masterpiece to the cloud?\n\n(Just kidding. It\'s gone.)', 'untitled - Paint');
+        closeWin(name);
+      });
+    }
     if (minBtn) minBtn.addEventListener('click', function (e) { e.stopPropagation(); minimizeWin(name); });
     if (maxBtn) maxBtn.addEventListener('click', function (e) { e.stopPropagation(); toggleMaximize(name); });
     win.addEventListener('mousedown', function () { focusWin(name); });
@@ -793,8 +800,17 @@
       if (closeBtn) {
         closeBtn.addEventListener('click', function (e) { e.stopPropagation(); closeWin(name); });
         closeBtn.addEventListener('mouseenter', function () {
+          state.closeBtnHoverCounts[name] = (state.closeBtnHoverCounts[name] || 0) + 1;
+          var count = state.closeBtnHoverCounts[name];
           state.closeBtnHoverTimers[name] = setTimeout(function () {
-            showEgg("Are you sure you want to leave?\n\nI was just getting to know you.");
+            var msgs = [
+              "Are you sure you want to leave?\n\nI was just getting to know you.",
+              "Still hovering? I'm flattered but you need to let go.",
+              "Third time's the charm. You really want out huh.",
+              "OK I get it. You hate me. That's fine.",
+              "This is emotional abuse. I'm reporting you to the Windows Police.",
+            ];
+            showEgg(msgs[Math.min(count - 1, msgs.length - 1)]);
           }, 5000);
         });
         closeBtn.addEventListener('mouseleave', function () {
@@ -1735,7 +1751,19 @@
 
       if (cmds[main]) cmds[main]();
       else if (main === '' || main === ' ') { /*noop*/ }
-      else writeLine('"' + main + '" is not recognized as an internal or external command, operable program or batch file.', 'cmd-error');
+      else if (main === 'why') {
+        showClippy('because. next question.');
+        writeLine('"' + main + '" is not recognized as an internal or external command, operable program or batch file.', 'cmd-error');
+      }
+      else {
+        var swear = ['fuck', 'shit', 'damn', 'bitch', 'ass', 'crap', 'piss', 'dick', 'bastard', 'bullshit', 'wtf', 'stupid', 'hell', 'suck'];
+        if (swear.indexOf(main) !== -1) {
+          showClippy('language. your mother would be disappointed.');
+          writeLine('"' + main + '" is not recognized as an internal or external command, operable program or batch file.', 'cmd-error');
+        } else {
+          writeLine('"' + main + '" is not recognized as an internal or external command, operable program or batch file.', 'cmd-error');
+        }
+      }
     }
 
     // Welcome message
@@ -1833,9 +1861,18 @@
 
   /* ── Tray Icons ── */
   function initTray() {
+    var soundClickCount = 0;
+    var soundClickTimer = null;
     if (dom.traySound) dom.traySound.addEventListener('click', function () {
       state.soundEnabled = !state.soundEnabled;
       showToast(state.soundEnabled ? '🔊' : '🔇', state.soundEnabled ? 'Sound enabled.' : 'Sound disabled.');
+      soundClickCount++;
+      clearTimeout(soundClickTimer);
+      soundClickTimer = setTimeout(function () { soundClickCount = 0; }, 3000);
+      if (soundClickCount >= 5) {
+        soundClickCount = 0;
+        showEgg('Make up your mind!\n\nYou have clicked the sound button 5 times in 3 seconds.\n\nThis is concerning behavior.');
+      }
     });
 
     if (dom.trayDark) {
@@ -1877,10 +1914,18 @@
   }
 
   /* ── Recycle Bin Controls ── */
+  var recycleConfirmCount = 0;
   function initRecycle() {
     // Empty button
     dom.recycleEmpty.addEventListener('click', function () {
       if (state.recycleItems.length === 0) { showEgg('The Recycle Bin is already empty.\n\nStop trying to delete nothing.'); return; }
+      recycleConfirmCount++;
+      if (recycleConfirmCount < 3) {
+        var msgs = ['Are you sure?', 'Really really sure?', 'Last chance. Are you absolutely sure?'];
+        showEgg(msgs[recycleConfirmCount - 1] + '\n\nThere are ' + state.recycleItems.length + ' item(s) in the bin.');
+        return;
+      }
+      recycleConfirmCount = 0;
       state.recycleItems = [];
       renderRecycle();
       showEgg('Recycle Bin emptied.\n\nAll files have been sent to the shadow realm.\n\nThey will not be missed.');
