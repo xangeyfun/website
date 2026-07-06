@@ -1057,6 +1057,30 @@
       if (cmd === 'paint') { openPaint(); return; }
 
       if (cmd === 'help') { showEgg("Help? You want help?\n\nThis is a fake Windows XP. The help files are as real as your chances of getting a refund."); return; }
+      if (cmd === 'secret' || cmd === 'secrets' || cmd === 'easter eggs' || cmd === 'easteregg') {
+        showEgg('All easter eggs:\n\n' +
+          '  F5 spam        - Press F5 repeatedly\n' +
+          '  BSOD           - Ctrl+Alt+Shift+B or type "bsod"\n' +
+          '  Konami Code    - Up Up Down Down Left Right Left Right B A\n' +
+          '  Start button   - Click it 5, 10, 15 times\n' +
+          '  My Computer    - Click the icon 7+ times\n' +
+          '  Wallpaper      - Click it 10 times\n' +
+          '  X button       - Hover close button 5+ seconds\n' +
+          '  Sound icon     - Click it 5 times in 3 seconds\n' +
+          '  Paint close    - Close Paint\n' +
+          '  Minimize spam  - Minimize/restore 6+ times in 2s\n' +
+          '  CMD swears     - Type a swear word\n' +
+          '  CMD "why"      - Type "why"\n' +
+          '  Run "sudo" x3  - Type "sudo" in Run 3 times\n' +
+          '  Recycle bin    - Try to empty it 3 times\n' +
+          '  Shutdown       - Try during Windows Update\n' +
+          '  Log Off        - Click Log Off\n' +
+          '  Help & Support - Click Help\n' +
+          '  Chrome         - Click Chrome in Start Menu\n' +
+          '  Clock          - Double-click tray clock',
+          'Secrets');
+        return;
+      }
       if (cmd === 'sudo') {
         state.sudoCount = (state.sudoCount || 0) + 1;
         if (state.sudoCount >= 3) {
@@ -1518,7 +1542,7 @@
       if (e.key === 'Tab') {
         e.preventDefault();
         var partial = input.value.trim().toLowerCase();
-        var cmds = ['help', 'tutorial', 'commands', 'about', 'whoami', 'socials', 'projects', 'contact', 'date', 'time', 'ver', 'dir', 'cd', 'cls', 'echo', 'type', 'neko', 'calc', 'bsod', 'shutdown', 'exit', 'paint', 'wupdate'];
+        var cmds = ['help', 'tutorial', 'commands', 'about', 'whoami', 'socials', 'projects', 'date', 'time', 'ver', 'dir', 'cd', 'cls', 'echo', 'type', 'neko', 'calc', 'bsod', 'shutdown', 'exit', 'paint', 'wupdate'];
         var match = cmds.filter(function (c) { return c.indexOf(partial) === 0; });
         if (match.length === 1) input.value = match[0];
       }
@@ -1565,13 +1589,12 @@
         },
         'commands': function () {
           writeLine('all commands:', 'cmd-highlight');
-          writeLine('  about       who made this site', 'cmd-info');
+          writeLine('  about       open About Me window', 'cmd-info');
           writeLine('  bsod        funny blue screen', 'cmd-info');
           writeLine('  calc        do math like calc 2+2', 'cmd-info');
           writeLine('  cd          change directory', 'cmd-info');
           writeLine('  cls         clear the screen', 'cmd-info');
           writeLine('  commands    show this list', 'cmd-info');
-          writeLine('  contact     how to reach me', 'cmd-info');
           writeLine('  date        current date', 'cmd-info');
           writeLine('  dir         list files in a folder', 'cmd-info');
           writeLine('  echo        repeat something back', 'cmd-info');
@@ -1579,9 +1602,9 @@
           writeLine('  help        quick tips for using the terminal', 'cmd-info');
           writeLine('  neko        cat', 'cmd-info');
           writeLine('  paint       open ms paint', 'cmd-info');
-          writeLine('  projects    stuff i am working on', 'cmd-info');
+          writeLine('  projects    open Projects window', 'cmd-info');
           writeLine('  shutdown    turn off the computer', 'cmd-info');
-          writeLine('  socials     where to find me', 'cmd-info');
+          writeLine('  socials     open Socials window', 'cmd-info');
           writeLine('  time        current time', 'cmd-info');
           writeLine('  tutorial    step by step walkthrough', 'cmd-info');
           writeLine('  type        read a file', 'cmd-info');
@@ -1590,17 +1613,8 @@
           writeLine('  wupdate     windows update (dont)', 'cmd-info');
         },
         'about': function () {
-          writeLine('', 'cmd-echo');
-          writeLine('  Xangey', 'cmd-highlight');
-          writeLine('  ======', 'cmd-highlight');
-          writeLine('  Age:     16', 'cmd-echo');
-          writeLine('  From:    Netherlands', 'cmd-echo');
-          writeLine('  Pronouns: he/him', 'cmd-echo');
-          writeLine('  Bio:     Likes building things with Python, running', 'cmd-echo');
-          writeLine('           experiments on servers, and turning ideas', 'cmd-echo');
-          writeLine('           into working code.', 'cmd-echo');
-          writeLine('', 'cmd-echo');
-          writeLine('  Languages: Python, C, SQL, HTML, CSS', 'cmd-info');
+          writeLine('  Opening About Me window...', 'cmd-info');
+          openWin('about');
         },
         'whoami': function () {
           writeLine('', 'cmd-echo');
@@ -1608,22 +1622,12 @@
           writeLine('A developer who definitely does not have a keyboard cat problem.', 'cmd-echo');
         },
         'socials': function () {
-          writeLine('', 'cmd-echo');
-          writeLine('  GitHub:   @xangeyfun', 'cmd-info');
-          writeLine('  Discord:  @xangey', 'cmd-info');
-          writeLine('  X/Twitter: @xangey_fun', 'cmd-info');
-          writeLine('  TikTok:   @xangey_', 'cmd-info');
+          writeLine('  Opening Socials window...', 'cmd-info');
+          openWin('socials');
         },
         'projects': function () {
-          writeLine('', 'cmd-echo');
-          writeLine('  1. VoidWave         - Discord Leveling Bot', 'cmd-info');
-          writeLine('  2. Learning C       - In Progress', 'cmd-info');
-          writeLine('  3. Server Experiments - Ongoing', 'cmd-info');
-        },
-        'contact': function () {
-          writeLine('', 'cmd-echo');
-          writeLine('  Discord: xangey (click to copy)', 'cmd-info');
-          writeLine('  Or use one of the social platforms!', 'cmd-echo');
+          writeLine('  Opening Projects window...', 'cmd-info');
+          openWin('projects');
         },
         'date': function () {
           var n = new Date();
