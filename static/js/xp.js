@@ -2315,7 +2315,7 @@
 
     // Fetch Discord status
     fetchDiscordStatus();
-    setInterval(fetchDiscordStatus, 5000);
+    setInterval(fetchDiscordStatus, 20000);
 
     // Init systems
     updateClock();
