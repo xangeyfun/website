@@ -434,7 +434,7 @@
     var closeBtn = win.querySelector('.close');
     var minBtn = win.querySelector('.minimize');
     var maxBtn = win.querySelector('.maximize');
-    if (closeBtn) closeBtn.addEventListener('click', function (e) { e.stopPropagation(); closeWin(name); });
+    if (closeBtn) closeBtn.addEventListener('click', function (e) { e.stopPropagation(); showEgg('Save your masterpiece to the cloud?\n\n(Just kidding. It\'s gone.)', 'untitled - Paint'); closeWin(name); });
     if (minBtn) minBtn.addEventListener('click', function (e) { e.stopPropagation(); minimizeWin(name); });
     if (maxBtn) maxBtn.addEventListener('click', function (e) { e.stopPropagation(); toggleMaximize(name); });
     win.addEventListener('mousedown', function () { focusWin(name); });
@@ -601,7 +601,6 @@
     if (closeBtn) {
       closeBtn.addEventListener('click', function (e) {
         e.stopPropagation();
-        showEgg('Save your masterpiece to the cloud?\n\n(Just kidding. It\'s gone.)', 'untitled - Paint');
         closeWin(name);
       });
     }
@@ -1058,27 +1057,7 @@
 
       if (cmd === 'help') { showEgg("Help? You want help?\n\nThis is a fake Windows XP. The help files are as real as your chances of getting a refund."); return; }
       if (cmd === 'secret' || cmd === 'secrets' || cmd === 'easter eggs' || cmd === 'easteregg') {
-        showEgg('All easter eggs:\n\n' +
-          '  F5 spam        - Press F5 repeatedly\n' +
-          '  BSOD           - Ctrl+Alt+Shift+B or type "bsod"\n' +
-          '  Konami Code    - Up Up Down Down Left Right Left Right B A\n' +
-          '  Start button   - Click it 5, 10, 15 times\n' +
-          '  My Computer    - Click the icon 7+ times\n' +
-          '  Wallpaper      - Click it 10 times\n' +
-          '  X button       - Hover close button 5+ seconds\n' +
-          '  Sound icon     - Click it 5 times in 3 seconds\n' +
-          '  Paint close    - Close Paint\n' +
-          '  Minimize spam  - Minimize/restore 6+ times in 2s\n' +
-          '  CMD swears     - Type a swear word\n' +
-          '  CMD "why"      - Type "why"\n' +
-          '  Run "sudo" x3  - Type "sudo" in Run 3 times\n' +
-          '  Recycle bin    - Try to empty it 3 times\n' +
-          '  Shutdown       - Try during Windows Update\n' +
-          '  Log Off        - Click Log Off\n' +
-          '  Help & Support - Click Help\n' +
-          '  Chrome         - Click Chrome in Start Menu\n' +
-          '  Clock          - Double-click tray clock',
-          'Secrets');
+        openWin('secrets');
         return;
       }
       if (cmd === 'sudo') {
