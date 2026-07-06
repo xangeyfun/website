@@ -178,6 +178,7 @@
     if (btn) btn.classList.remove('active');
     var remaining = state.openWindows.filter(function (w) { return w !== name; });
     if (remaining.length > 0) focusWin(remaining[remaining.length - 1]);
+    trackMinRestore();
   }
 
   function restoreWin(name) {
@@ -188,6 +189,18 @@
     focusWin(name);
     var btn = $('.taskbar-btn[data-window="' + name + '"]');
     if (btn) btn.classList.add('active');
+    trackMinRestore();
+  }
+
+  var _mrCount = 0, _mrTimer = null;
+  function trackMinRestore() {
+    _mrCount++;
+    clearTimeout(_mrTimer);
+    _mrTimer = setTimeout(function () { _mrCount = 0; }, 2000);
+    if (_mrCount >= 6) {
+      _mrCount = 0;
+      showEgg('Stop that. You look ridiculous.\n\n(Seriously. People are watching.)');
+    }
   }
 
   function toggleMaximize(name) {
@@ -1032,7 +1045,7 @@
         'cmd': 'cmd', 'about': 'about', 'socials': 'socials', 'projects': 'projects',
         'contact': 'socials', 'explorer': 'my-computer', 'computer': 'my-computer',
         'recycle': 'recycle', 'recycle bin': 'recycle',
-        'help': 'cmd', 'whoami': 'about',
+        'help': 'cmd', 'whoami': 'about', 'winver': 'winver', 'about windows': 'winver',
       };
       if (cmd === '') return;
       if (cmd === 'bsod') { showBSOD(); return; }
@@ -1044,7 +1057,15 @@
       if (cmd === 'paint') { openPaint(); return; }
 
       if (cmd === 'help') { showEgg("Help? You want help?\n\nThis is a fake Windows XP. The help files are as real as your chances of getting a refund."); return; }
-      if (cmd === 'sudo') { showEgg("sudo: Go away. This is Windows."); return; }
+      if (cmd === 'sudo') {
+        state.sudoCount = (state.sudoCount || 0) + 1;
+        if (state.sudoCount >= 3) {
+          state.sudoCount = 0;
+          showClippy('sudo is not a Windows command. It never will be. Let it go.');
+        }
+        showEgg("sudo: Go away. This is Windows.");
+        return;
+      }
       if (cmd === 'wupdate' || cmd === 'windowsupdate' || cmd === 'update') { openWindowsUpdate(); return; }
 
       var target = map[cmd];
@@ -2486,6 +2507,11 @@
     initKeyboard();
     initEggDialog();
     initBSOD();
+    // Winver OK button
+    var winverOk = $('.winver-ok');
+    if (winverOk) {
+      winverOk.addEventListener('click', function () { closeWin('winver'); });
+    }
     initEasterEggs();
     exposeGlobals();
 
