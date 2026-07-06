@@ -81,7 +81,7 @@
     <div id="windows-container">
 
       <!-- About Me -->
-      <div class="window" data-window="about" data-x="80" data-y="50" data-w="580" data-h="380">
+      <div class="window" data-window="about" data-x="80" data-y="50" data-w="500" data-h="340">
         <div class="window-titlebar">
           <div class="window-title">
             <svg viewBox="0 0 16 16" class="window-title-icon"><circle cx="8" cy="5" r="3" fill="#ffd700"/><circle cx="8" cy="5" r="2" fill="#fff8dc"/><path d="M4 14 C4 10 12 10 12 14" fill="#245edc"/><path d="M5 14 C5 11 11 11 11 14" fill="#3a8df5"/></svg>
@@ -108,8 +108,19 @@
                   <h3>User Info</h3>
                   <p>i like building things with python, running experiments on my servers, and turning ideas into working code.</p>
                 </div>
-                <div class="about-section">
-                  <h3>Languages</h3>
+              </div>
+            </div>
+            <div class="about-right">
+              <div class="about-section">
+                <h3>Skills</h3>
+                <div class="skill-bar"><span class="skill-label">Python</span><div class="skill-track"><span class="skill-fill" style="width:92%"></span></div></div>
+                <div class="skill-bar"><span class="skill-label">C</span><div class="skill-track"><span class="skill-fill" style="width:25%"></span></div></div>
+                <div class="skill-bar"><span class="skill-label">SQL</span><div class="skill-track"><span class="skill-fill" style="width:55%"></span></div></div>
+                <div class="skill-bar"><span class="skill-label">HTML</span><div class="skill-track"><span class="skill-fill" style="width:30%"></span></div></div>
+                <div class="skill-bar"><span class="skill-label">CSS</span><div class="skill-track"><span class="skill-fill" style="width:15%"></span></div></div>
+              </div>
+              <div class="about-section">
+                <h3>Languages</h3>
                   <div class="lang-list">
                     <img src="{{ url_for('static', filename='Images/python.png') }}" alt="Python" title="Python">
                     <img src="{{ url_for('static', filename='Images/c.png') }}" alt="C" title="C">
@@ -119,24 +130,6 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="about-right">
-              <div class="about-section">
-                <h3>Skills</h3>
-                <div class="skill-bar"><span class="skill-label">Python</span><div class="skill-track"><span class="skill-fill" style="width:92%"></span></div></div>
-                <div class="skill-bar"><span class="skill-label">C</span><div class="skill-track"><span class="skill-fill" style="width:35%"></span></div></div>
-                <div class="skill-bar"><span class="skill-label">SQL</span><div class="skill-track"><span class="skill-fill" style="width:55%"></span></div></div>
-                <div class="skill-bar"><span class="skill-label">HTML</span><div class="skill-track"><span class="skill-fill" style="width:30%"></span></div></div>
-                <div class="skill-bar"><span class="skill-label">CSS</span><div class="skill-track"><span class="skill-fill" style="width:25%"></span></div></div>
-              </div>
-              <div class="about-section">
-                <h3>System</h3>
-                <div class="sys-info"><span>OS:</span><span>Windows XP</span></div>
-                <div class="sys-info"><span>User:</span><span>Xangey</span></div>
-                <div class="sys-info"><span>Location:</span><span>Netherlands</span></div>
-              </div>
-
-            </div>
           </div>
         </div>
       </div>
