@@ -2206,7 +2206,7 @@
         function buildActivityMsg(info) {
           if (!info) return null;
           if (info.type === 'music' && info.state) {
-            return 'Xangey started listening to ' + info.state + '!';
+            return 'Xangey started listening to ' + info.name + '!';
           }
           if (info.type === 'music') {
             return 'Xangey started listening to ' + (info.details || 'something') + '!';
