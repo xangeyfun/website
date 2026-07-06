@@ -117,6 +117,8 @@ img{-webkit-user-drag:none;user-select:none;pointer-events:none}
 .contact-links a{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--xp-card-bg);border:1px solid var(--xp-card-border);border-radius:4px;font-size:11px;transition:background .15s,border-color .15s}
 .contact-links a:hover{background:#e8e8ff;border-color:var(--xp-highlight)}
 .contact-links a img{width:20px;height:20px}
+.discord-section-header{margin-bottom:-4px}
+.discord-section-header .discord-section-icon{width:16px;height:16px;flex-shrink:0}
 
 /* ═══ EXPLORER ═══ */
 .explorer-toolbar{display:flex;align-items:center;gap:4px;background:var(--xp-explorer-toolbar);border-bottom:1px solid var(--xp-card-border);padding:4px 6px;flex-shrink:0}
