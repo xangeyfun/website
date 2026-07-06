@@ -14,6 +14,7 @@
     screensaverTimer: null,
     screensaverActive: false,
     soundEnabled: false,
+    cmdDir: 'c/Users/Xangey',
     cmdHistory: [],
     cmdHistoryIdx: -1,
     explorerHistory: ['root'],
@@ -1410,6 +1411,41 @@
     var output = dom.cmdOutput;
     if (!input) return;
 
+    function resolveCmdPath(p) {
+      if (!p || p.trim() === '') return state.cmdDir;
+      p = p.trim().replace(/\\/g, '/').replace(/^\.\//, '');
+      var parts;
+      if (p.indexOf('/') === 0) {
+        var drive = state.cmdDir.split('/')[0];
+        parts = [drive].concat(p.substring(1).split('/').filter(Boolean));
+      } else {
+        parts = state.cmdDir.split('/').concat(p.split('/').filter(Boolean));
+      }
+      var r = [];
+      for (var i = 0; i < parts.length; i++) {
+        if (parts[i] === '.' || parts[i] === '') continue;
+        if (parts[i] === '..') { if (r.length > 1) r.pop(); }
+        else r.push(parts[i]);
+      }
+      return r.join('/');
+    }
+
+    function getCmdNode(p) {
+      var parts = p.split('/');
+      if (!fs[parts[0]]) return null;
+      var cur = fs[parts[0]];
+      for (var i = 1; i < parts.length; i++) {
+        if (!cur.folders || !cur.folders[parts[i]]) return null;
+        cur = cur.folders[parts[i]];
+      }
+      return cur;
+    }
+
+    function cmdPathDisp(p) {
+      var parts = p.split('/');
+      return parts[0].toUpperCase() + ':\\' + parts.slice(1).join('\\');
+    }
+
     function writeLine(text, cls) {
       var d = document.createElement('div');
       d.className = cls || 'cmd-echo';
@@ -1444,7 +1480,7 @@
       if (e.key === 'Tab') {
         e.preventDefault();
         var partial = input.value.trim().toLowerCase();
-        var cmds = ['help', 'about', 'whoami', 'socials', 'projects', 'contact', 'date', 'time', 'ver', 'dir', 'cls', 'echo', 'type', 'neko', 'calc', 'bsod', 'shutdown', 'exit', 'paint', 'wupdate'];
+        var cmds = ['help', 'tutorial', 'commands', 'about', 'whoami', 'socials', 'projects', 'contact', 'date', 'time', 'ver', 'dir', 'cd', 'cls', 'echo', 'type', 'neko', 'calc', 'bsod', 'shutdown', 'exit', 'paint', 'wupdate'];
         var match = cmds.filter(function (c) { return c.indexOf(partial) === 0; });
         if (match.length === 1) input.value = match[0];
       }
@@ -1455,31 +1491,65 @@
       var args = cmd.split(' ');
       var main = args[0];
 
-      writeLine('C:\\Users\\Xangey> ' + raw, 'cmd-echo');
+      writeLine(cmdPathDisp(state.cmdDir) + '> ' + raw, 'cmd-echo');
 
       var cmds = {
         'help': function () {
-          writeLine('Available commands:', 'cmd-info');
-          writeLine('  HELP      - Show this help message', 'cmd-info');
-          writeLine('  ABOUT     - About Xangey', 'cmd-info');
-          writeLine('  SOCIALS   - Display social links', 'cmd-info');
-          writeLine('  PROJECTS  - Show projects', 'cmd-info');
-          writeLine('  CONTACT   - Contact info', 'cmd-info');
-          writeLine('  WHOAMI    - Display current user', 'cmd-info');
-          writeLine('  DATE      - Show current date', 'cmd-info');
-          writeLine('  TIME      - Show current time', 'cmd-info');
-          writeLine('  VER       - Display version', 'cmd-info');
-          writeLine('  DIR       - List files', 'cmd-info');
-          writeLine('  CLS       - Clear screen', 'cmd-info');
-          writeLine('  ECHO      - Echo text', 'cmd-info');
-          writeLine('  TYPE      - Read a file', 'cmd-info');
-          writeLine('  NEKO      - Display a cat', 'cmd-info');
-          writeLine('  CALC      - Evaluate expression', 'cmd-info');
-          writeLine('  PAINT     - Open MS Paint', 'cmd-info');
-          writeLine('  WUPDATE   - Open Windows Update', 'cmd-info');
-          writeLine('  BSOD      - Simulate crash', 'cmd-warn');
-          writeLine('  SHUTDOWN  - Shut down system', 'cmd-warn');
-          writeLine('  EXIT      - Close command prompt', 'cmd-warn');
+          writeLine('this is a command prompt. you type commands and press enter.', 'cmd-info');
+          writeLine('', 'cmd-echo');
+          writeLine('  cd <folder>      move into a folder (cd .. to go back)', 'cmd-info');
+          writeLine('  dir <path>       list files and folders', 'cmd-info');
+          writeLine('  type <file>      show the contents of a file', 'cmd-info');
+          writeLine('  cls              clear the screen', 'cmd-info');
+          writeLine('', 'cmd-echo');
+          writeLine('paths can be relative (Documents) or absolute (\\Windows).', 'cmd-info');
+          writeLine('try "tutorial" for a full walkthrough, or "commands" for every command.', 'cmd-info');
+        },
+        'tutorial': function () {
+          writeLine('ok so youre looking at a command prompt. its how people used', 'cmd-info');
+          writeLine('computers before mice were cool. still works though.', 'cmd-info');
+          writeLine('', 'cmd-echo');
+          writeLine('  step 1  type "dir" and press enter', 'cmd-info');
+          writeLine('            that lists whats in your current folder.', 'cmd-info');
+          writeLine('', 'cmd-echo');
+          writeLine('  step 2  type "cd Documents" and press enter', 'cmd-info');
+          writeLine('            that moves you into the Documents folder.', 'cmd-info');
+          writeLine('            notice the prompt changed - youre there now.', 'cmd-info');
+          writeLine('', 'cmd-echo');
+          writeLine('  step 3  type "dir" again to see whats inside', 'cmd-info');
+          writeLine('', 'cmd-echo');
+          writeLine('  step 4  type "type todo.txt"', 'cmd-info');
+          writeLine('            that prints the file contents to the screen.', 'cmd-info');
+          writeLine('', 'cmd-echo');
+          writeLine('  step 5  type "cd .." to go back up a folder', 'cmd-info');
+          writeLine('', 'cmd-echo');
+          writeLine('use "commands" to see everything this thing can do.', 'cmd-info');
+        },
+        'commands': function () {
+          writeLine('all commands:', 'cmd-highlight');
+          writeLine('  about       who made this site', 'cmd-info');
+          writeLine('  bsod        funny blue screen', 'cmd-info');
+          writeLine('  calc        do math like calc 2+2', 'cmd-info');
+          writeLine('  cd          change directory', 'cmd-info');
+          writeLine('  cls         clear the screen', 'cmd-info');
+          writeLine('  commands    show this list', 'cmd-info');
+          writeLine('  contact     how to reach me', 'cmd-info');
+          writeLine('  date        current date', 'cmd-info');
+          writeLine('  dir         list files in a folder', 'cmd-info');
+          writeLine('  echo        repeat something back', 'cmd-info');
+          writeLine('  exit        close this window', 'cmd-info');
+          writeLine('  help        quick tips for using the terminal', 'cmd-info');
+          writeLine('  neko        cat', 'cmd-info');
+          writeLine('  paint       open ms paint', 'cmd-info');
+          writeLine('  projects    stuff i am working on', 'cmd-info');
+          writeLine('  shutdown    turn off the computer', 'cmd-info');
+          writeLine('  socials     where to find me', 'cmd-info');
+          writeLine('  time        current time', 'cmd-info');
+          writeLine('  tutorial    step by step walkthrough', 'cmd-info');
+          writeLine('  type        read a file', 'cmd-info');
+          writeLine('  ver         version info', 'cmd-info');
+          writeLine('  whoami      who are you', 'cmd-info');
+          writeLine('  wupdate     windows update (dont)', 'cmd-info');
         },
         'about': function () {
           writeLine('', 'cmd-echo');
@@ -1532,27 +1602,56 @@
           writeLine('(c) Copyright 2026. A real Microsoft product. (Not really.)', 'cmd-echo');
         },
         'dir': function () {
-          writeLine(' Volume in drive C has no label.', 'cmd-echo');
+          function randDate() {
+            var d = new Date(2026, 4, 1);
+            d.setDate(d.getDate() + Math.floor(Math.random() * 60));
+            var mm = String(d.getMonth() + 1).padStart(2, '0');
+            var dd = String(d.getDate()).padStart(2, '0');
+            var yyyy = d.getFullYear();
+            var h = d.getHours();
+            var m = String(d.getMinutes()).padStart(2, '0');
+            var ampm = h >= 12 ? 'PM' : 'AM';
+            var h12 = h % 12 || 12;
+            return mm + '/' + dd + '/' + yyyy + '  ' + String(h12).padStart(2, '0') + ':' + m + ' ' + ampm;
+          }
+          var target = raw.substring(4).trim();
+          var dirPath = resolveCmdPath(target);
+          var node = getCmdNode(dirPath);
+          if (!node) {
+            writeLine('The system cannot find the path specified.', 'cmd-error');
+            return;
+          }
+          writeLine(' Volume in drive ' + dirPath.charAt(0).toUpperCase() + ' has no label.', 'cmd-echo');
           writeLine(' Volume Serial Number is XP42-2024', 'cmd-echo');
           writeLine('', 'cmd-echo');
-          writeLine(' Directory of C:\\Users\\Xangey', 'cmd-echo');
+          writeLine(' Directory of ' + cmdPathDisp(dirPath), 'cmd-echo');
           writeLine('', 'cmd-echo');
-          writeLine('06/23/2026  07:19 PM    <DIR>          .', 'cmd-echo');
-          writeLine('06/23/2026  07:19 PM    <DIR>          ..', 'cmd-echo');
-          writeLine('06/23/2026  07:19 PM    <DIR>          Documents', 'cmd-echo');
-          writeLine('06/23/2026  07:19 PM    <DIR>          Desktop', 'cmd-echo');
-          writeLine('06/23/2026  07:19 PM    <DIR>          Downloads', 'cmd-echo');
-          writeLine('06/23/2026  07:19 PM    <DIR>          Pictures', 'cmd-echo');
-          writeLine('06/23/2026  07:19 PM    <DIR>          Music', 'cmd-echo');
-          writeLine('06/23/2026  07:19 PM    <DIR>          Videos', 'cmd-echo');
-          writeLine('06/23/2026  07:19 PM              2048  voidwave_plans.txt', 'cmd-echo');
-          writeLine('06/23/2026  07:19 PM               512  todo.txt', 'cmd-echo');
-          writeLine('06/23/2026  07:19 PM               256  notes.txt', 'cmd-echo');
-          writeLine('06/23/2026  07:19 PM              1024  ideas.txt', 'cmd-echo');
-          writeLine('06/23/2026  07:19 PM               640  projects.txt', 'cmd-echo');
+          var dc = 0, fc = 0, totalSize = 0;
+          var lines = [];
+          var dotDate = randDate();
+          lines.push(dotDate + '    <DIR>          .');
+          lines.push(dotDate + '    <DIR>          ..');
+          dc += 2;
+          if (node.folders) {
+            Object.keys(node.folders).forEach(function (k) {
+              lines.push(randDate() + '    <DIR>          ' + k);
+              dc++;
+            });
+          }
+          if (node.files) {
+            Object.keys(node.files).forEach(function (k) {
+              var size = Math.floor(Math.random() * 5000) + 50;
+              totalSize += size;
+              fc++;
+              var s = String(size);
+              while (s.length < 14) s = ' ' + s;
+              lines.push(randDate() + '  ' + s + '  ' + k);
+            });
+          }
+          lines.forEach(function (l) { writeLine(l, 'cmd-echo'); });
           writeLine('', 'cmd-echo');
-          writeLine('               5 File(s)         3,480 bytes', 'cmd-echo');
-          writeLine('               8 Dir(s)   15.3 GB free', 'cmd-echo');
+          writeLine('               ' + fc + ' File(s)         ' + totalSize.toLocaleString() + ' bytes', 'cmd-echo');
+          writeLine('               ' + dc + ' Dir(s)  15.3 GB free', 'cmd-echo');
         },
         'cls': function () { output.innerHTML = ''; },
         'echo': function () {
@@ -1560,22 +1659,19 @@
           writeLine(txt || 'ECHO is on.', 'cmd-echo');
         },
         'type': function () {
-          var file = raw.substring(5).trim().toLowerCase();
-          var files = {
-            'voidwave_plans.txt': 'VoidWave Discord Leveling Bot - Roadmap\n\n[x] XP & leveling system\n[x] Global + server leaderboards\n[x] AI chat (Llama 3.2)\n[x] Web profiles with Flask\n[ ] Role rewards\n[ ] Dashboard analytics\n---\nNext up: role rewards automation.',
-            'todo.txt': '- Add role rewards system to VoidWave\n- Implement slash command sync\n- Build dashboard analytics page\n- Write unit tests for XP tracking',
-            'notes.txt': 'Remember to update the deployment scripts before the next release.\nThe CI pipeline needs a new runner configuration for ARM builds.',
-            'ideas.txt': 'VoidWave dashboard with real-time server stats.\nUsing FastAPI for backend and Chart.js for graphs.',
-            'projects.txt': 'VoidWave - Discord leveling bot (Python, discord.py, Flask)\nLearning C - Systems programming\nServer infrastructure - Homelab k8s cluster',
-            'readme.txt': 'Welcome to Xangey\'s Desktop.\nThis is a simulated Windows XP environment.\n\nFeel free to explore the file system,\nopen the command prompt, or check out the projects.',
-            'links.txt': 'GitHub: https://github.com/xangeyfun\nTwitter: https://twitter.com/xangey_fun\nTikTok: https://tiktok.com/@xangey_',
-            'build.log': '[2026-06-23 14:32:01] Loading leveling system...\n[2026-06-23 14:32:14] Bot is online.',
-            'shopping_list.txt': '- Groceries: milk, eggs, bread\n- New keyboard (mechanical, blue switches)\n- Raspberry Pi 5 for cluster project\n- Thermal paste for server maintenance',
-            'hello.c': '#include <stdio.h>\n\nint main() {\n    printf("Hello, World!\\n");\n    return 0;\n}',
-            'deploy_notes.txt': 'Deployment checklist:\n1. Pull latest from git\n2. Build Docker image\n3. Run migrations\n4. Restart service\n5. Verify health endpoint\n6. Check logs for errors',
-          };
-          if (files[file]) writeLine('\n' + files[file] + '\n', 'cmd-info');
-          else writeLine('The system cannot find the file specified.', 'cmd-error');
+          var file = raw.substring(5).trim().replace(/\\/g, '/');
+          if (!file) { writeLine('The syntax of the command is incorrect.', 'cmd-error'); return; }
+          var parts = file.split('/');
+          var filename = parts.pop();
+          var dirPath = resolveCmdPath(parts.join('/'));
+          var node = getCmdNode(dirPath);
+          if (!node || !node.files || !node.files[filename]) {
+            writeLine('The system cannot find the file specified.', 'cmd-error');
+            return;
+          }
+          writeLine('', 'cmd-echo');
+          writeLine(node.files[filename], 'cmd-info');
+          writeLine('', 'cmd-echo');
         },
         'neko': function () {
           writeLine('', 'cmd-echo');
@@ -1593,6 +1689,22 @@
             writeLine('', 'cmd-echo');
             writeLine('  Result: ' + result, 'cmd-highlight');
           } catch (e) { writeLine('  Error: Invalid calculation. Did you break math?', 'cmd-error'); }
+        },
+        'cd': function () {
+          var target = raw.substring(3).trim();
+          if (!target) {
+            writeLine(' ' + cmdPathDisp(state.cmdDir), 'cmd-echo');
+            return;
+          }
+          var resolved = resolveCmdPath(target);
+          if (resolved === state.cmdDir) return;
+          var node = getCmdNode(resolved);
+          if (!node) {
+            writeLine('The system cannot find the path specified.', 'cmd-error');
+            return;
+          }
+          state.cmdDir = resolved;
+          dom.cmdPrompt.textContent = cmdPathDisp(state.cmdDir) + '>';
         },
         'paint': function () {
           writeLine('  Starting Paint...', 'cmd-info');
@@ -1626,10 +1738,11 @@
     }
 
     // Welcome message
+    dom.cmdPrompt.textContent = cmdPathDisp(state.cmdDir) + '>';
     writeLine('Microsoft Windows XP [Version 5.1.2600]', 'cmd-highlight');
     writeLine('(c) Copyright 1985-2026 Microsoft Corp.', 'cmd-echo');
     writeLine('', 'cmd-echo');
-    writeLine('C:\\Users\\Xangey> Type HELP for available commands. Have fun!', 'cmd-info');
+    writeLine(cmdPathDisp(state.cmdDir) + '> type "help" for tips or "commands" for everything. have fun!', 'cmd-info');
     writeLine('', 'cmd-echo');
   }
 
@@ -2262,6 +2375,7 @@
     dom.toastIcon = $('#toast-icon');
     dom.cmdInput = $('#cmd-input');
     dom.cmdOutput = $('#cmd-output');
+    dom.cmdPrompt = $('#cmd-prompt');
     dom.explorerContent = $('#explorer-content');
     dom.explorerAddress = $('#explorer-addr');
     dom.explorerBack = $('#explorer-back');
