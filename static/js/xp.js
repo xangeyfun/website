@@ -127,7 +127,7 @@
       if (document.hidden) { scheduleClippy(); return; }
       showClippy();
       scheduleClippy();
-    }, 30000 + Math.random() * 30000);
+    }, 60000 + Math.random() * 60000);
   }
 
   function hasUpdateRunning() {
