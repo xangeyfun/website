@@ -22,27 +22,6 @@
   <div id="desktop">
 
     <!-- BOOT SCREEN -->
-    <div id="boot-screen">
-      <div class="boot-content">
-        <div class="boot-logo">
-          <svg viewBox="0 0 260 80" class="boot-flag">
-            <rect x="0" y="0" width="65" height="80" rx="4" fill="#ff4500" opacity="0.85"/>
-            <rect x="67" y="0" width="63" height="80" rx="4" fill="#32cd32" opacity="0.85"/>
-            <rect x="132" y="0" width="63" height="80" rx="4" fill="#4169e1" opacity="0.85"/>
-            <rect x="197" y="0" width="63" height="80" rx="4" fill="#ffd700" opacity="0.85"/>
-          </svg>
-        </div>
-        <div class="boot-title">Microsoft<sup>&reg;</sup> Windows<sup>&reg;</sup> XP</div>
-        <div class="boot-subtitle">Xangey Edition</div>
-        <div class="boot-progress-wrap">
-          <div class="boot-progress-track">
-            <div class="boot-progress-bar" id="boot-progress-bar"></div>
-          </div>
-        </div>
-        <div class="boot-status" id="boot-status">Loading your desktop...</div>
-      </div>
-    </div>
-
     <!-- WALLPAPER -->
     <div id="wallpaper"></div>
 
@@ -189,7 +168,7 @@
             </a>
             <a href="https://github.com/xangeyfun/learning-c" target="_blank" rel="noopener noreferrer" class="project-card" style="text-decoration:none;color:inherit">
               <div class="project-icon">
-                <svg viewBox="0 0 32 32"><rect x="4" y="4" width="24" height="24" rx="4" fill="#245edc"/><text x="8" y="22" fill="#fff" font-size="14" font-weight="bold" font-family="monospace">C</text></svg>
+                <img src="{{ url_for('static', filename='Images/c.png') }}" alt="C">
               </div>
               <div class="project-info">
                 <h3>Learning C</h3>

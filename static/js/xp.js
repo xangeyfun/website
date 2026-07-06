@@ -50,7 +50,6 @@
     bsodDumpInterval: null,
     konamiSeq: [],
     wallpaperClicks: 0,
-    bootFlagClicks: 0,
     windowHoardingNotified: false,
     closeBtnHoverTimers: {},
     f5Count: 0,
@@ -92,42 +91,6 @@
     dom.clock.textContent = h + ':' + m + ':' + s;
     dom.clock.title = d + '/' + mo + '/' + n.getFullYear() + ' ' + h + ':' + m + ':' + s;
   }
-
-  /* ── Boot ── */
-  function runBoot() {
-    const statuses = [
-      "Loading personal desktop...",
-      "Configuring fun settings...",
-      "Applying XP theme...",
-      "Loading Xangey's profile...",
-      "Preparing windows...",
-      "Almost ready...",
-      "Welcome!"
-    ];
-    let i = 0;
-    const total = statuses.length;
-    const iv = setInterval(function () {
-      i++;
-      var pct = Math.round(i / (total + 2) * 100);
-      dom.bootBar.style.width = pct + '%';
-      dom.bootStatus.textContent = statuses[Math.min(i - 1, total - 1)];
-      if (i >= total + 2) {
-        clearInterval(iv);
-        dom.bootScreen.classList.add('hidden');
-        state.bootDone = true;
-        setTimeout(function () {
-          showToast('🖥️', 'Welcome to Xangey\'s Desktop!');
-          openWin("about")
-          setTimeout(function () {
-            showClippy('Hello there! Welcome to Xangey\'s Windows XP.\n\nI\'m Clippy! I\'ll be your... somewhat helpful assistant.');
-          }, 1500);
-        }, 500);
-        initScreensaver();
-        scheduleClippy();
-      }
-    }, 350);
-  }
-
   /* ── Toast ── */
   function showToast(icon, text) {
     dom.toastIcon.textContent = icon || '✅';
@@ -1852,19 +1815,6 @@
 
   /* ── Easter Eggs ── */
   function initEasterEggs() {
-    // Boot flag clicks
-    if (dom.bootFlag) {
-      dom.bootFlag.addEventListener('click', function () {
-        state.bootFlagClicks++;
-        if (state.bootFlagClicks === 3) showEgg("Stop clicking the flag. It's not a button.");
-        else if (state.bootFlagClicks === 7) showEgg("The flag represents nothing. It's purely decorative.");
-        else if (state.bootFlagClicks === 10) {
-          showEgg("Congratulations! You've clicked the boot logo 10 times.\n\nHere's your reward: absolutely nothing.");
-          state.bootFlagClicks = 0;
-        }
-      });
-    }
-
 
 
     // Screensaver logo click
@@ -2277,9 +2227,6 @@
     // Collect DOM refs
     dom.desktop = $('#desktop');
     dom.windowsContainer = $('#windows-container');
-    dom.bootScreen = $('#boot-screen');
-    dom.bootBar = $('#boot-progress-bar');
-    dom.bootStatus = $('#boot-status');
     dom.startBtn = $('#start-btn');
     dom.startMenu = $('#start-menu');
     dom.taskbarWindows = $('#taskbar-windows');
@@ -2293,7 +2240,6 @@
     dom.screensaver = $('#screensaver');
     dom.ssWrapper = $('#screensaver .ss-wrapper');
     dom.ssLogo = $('#ss-logo');
-    dom.bootFlag = $('.boot-flag');
     dom.bsod = $('#bsod');
     dom.eggDialog = $('#egg-dialog');
     dom.eggText = $('#egg-text');
@@ -2344,16 +2290,17 @@
     dom.discordProgressTotal = $('#discord-progress-total');
 
     // Boot
-    var visited = sessionStorage.getItem('xp_boot_done');
-    if (visited) {
-      dom.bootScreen.classList.add('hidden');
-      state.bootDone = true;
-      scheduleClippy();
-      setTimeout(function () { showClippy('Welcome back! I missed you.\n\nDon\'t worry, I\'ve been watching the whole time.'); }, 1000);
-    } else {
-      sessionStorage.setItem('xp_boot_done', '1');
-      runBoot();
-    }
+    state.bootDone = true;
+    sessionStorage.setItem('xp_boot_done', '1');
+    setTimeout(function () {
+      showToast('🖥️', 'Welcome to Xangey\'s Desktop!');
+      openWin("about");
+    }, 300);
+    setTimeout(function () {
+      showClippy('Hello there! Welcome to Xangey\'s Windows XP.\n\nI\'m Clippy! I\'ll be your... somewhat helpful assistant.');
+    }, 1200);
+    initScreensaver();
+    scheduleClippy();
 
     // Fetch Discord status
     fetchDiscordStatus();

@@ -9,18 +9,6 @@ img{-webkit-user-drag:none;user-select:none;pointer-events:none}
 .hidden{display:none!important}
 
 /* ═══ BOOT SCREEN ═══ */
-#boot-screen{position:fixed;inset:0;z-index:99999;background:linear-gradient(180deg,#000 0%,#1a1a2e 40%,#16213e 60%,#0f3460 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;animation:bootFade .5s ease;will-change:opacity}
-@keyframes bootFade{from{opacity:0}to{opacity:1}}
-.boot-content{text-align:center;max-width:500px;width:90%}
-.boot-logo{margin-bottom:24px}
-.boot-flag{width:200px;height:auto;filter:drop-shadow(0 0 30px rgba(255,255,255,0.15))}
-.boot-title{color:#fff;font-size:24px;font-weight:300;letter-spacing:1px;margin-bottom:4px}
-.boot-title sup{font-size:12px}
-.boot-subtitle{color:#8ab4f8;font-size:13px;margin-bottom:30px}
-.boot-progress-wrap{display:flex;justify-content:center;margin-bottom:12px}
-.boot-progress-track{width:280px;height:6px;background:rgba(255,255,255,0.15);border-radius:3px;overflow:hidden}
-.boot-progress-bar{height:100%;width:0%;background:linear-gradient(90deg,#4a9af5,#8ab4f8,#4a9af5);background-size:200% 100%;border-radius:3px;transition:width .15s linear}
-.boot-status{color:#8ab4f8;font-size:11px;opacity:0.8}
 
 /* ═══ WALLPAPER ═══ */
 #wallpaper{position:absolute;inset:0;z-index:0;background:url('../Images/bliss.jpg') center center / cover no-repeat}
@@ -410,8 +398,6 @@ img{-webkit-user-drag:none;user-select:none;pointer-events:none}
   #taskbar{height:36px}
   .taskbar-btn{min-width:60px;max-width:100px;height:26px;font-size:10px;padding:2px 6px}
   #taskbar-windows{gap:2px}
-  .boot-flag{width:140px}
-  .boot-title{font-size:18px}
   #context-menu{min-width:150px}
   .explorer-content{padding:6px}
   .exp-item{width:72px;padding:6px}
