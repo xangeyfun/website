@@ -1026,6 +1026,7 @@
       }
       if (cmd === 'notepad') { openNotepad(); return; }
       if (cmd === 'paint') { openPaint(); return; }
+
       if (cmd === 'help') { showEgg("Help? You want help?\n\nThis is a fake Windows XP. The help files are as real as your chances of getting a refund."); return; }
       if (cmd === 'sudo') { showEgg("sudo: Go away. This is Windows."); return; }
       if (cmd === 'wupdate' || cmd === 'windowsupdate' || cmd === 'update') { openWindowsUpdate(); return; }
@@ -1834,7 +1835,7 @@
   function initTray() {
     if (dom.traySound) dom.traySound.addEventListener('click', function () {
       state.soundEnabled = !state.soundEnabled;
-      showToast(state.soundEnabled ? '🔊' : '🔇', state.soundEnabled ? 'Sound enabled! (Not really, no audio files loaded)' : 'Sound disabled.');
+      showToast(state.soundEnabled ? '🔊' : '🔇', state.soundEnabled ? 'Sound enabled.' : 'Sound disabled.');
     });
 
     if (dom.trayDark) {
