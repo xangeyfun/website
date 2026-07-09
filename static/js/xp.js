@@ -2142,11 +2142,64 @@
           }
         }
 
+        // App icon cache for games without Rich Presence assets
+        var GAME_ICONS = {
+          '363445589247131668': 'f2b60e350a2097289b3b0b877495e55f',  // ROBLOX
+          '1402418491272986635': '166fbad351ecdd02d11a3b464748f66b', // Minecraft
+          '1410791091501928458': 'f6276125dd550f11bcd5f79fd283026c', // Minecraft: Java Edition
+          '1402418571715543120': 'a0a565c547795c027b82f58c4a391c43', // Bloons TD 6
+          '426528712348139520': '6ff27148b29e87f584e97196767b5813',  // Bloons TD 5
+          '1402418576278950038': '5b5a71dd658a9dcf38c7a5b76aa7c1e2', // Bloons TD Battles
+          '1124352032246087821': '3d15ffef6d2d3a00e8cf6fc9fcd13b02', // Bloons Monkey City
+          '1124352351269048370': 'b85c0bf2de449130894459ebd1fb3060', // Minecraft Dungeons
+          '1300836576850481172': '84479df8003ce2f46b15b738af99ebe2', // Bloons Card Storm
+        };
+
+        // Fetch detectable apps from Discord to fill GAME_ICONS
+        (function fillGameIcons() {
+          try {
+            var cached = localStorage.getItem('xp_game_icons');
+            var cachedVer = localStorage.getItem('xp_game_icons_ver');
+            if (cached && cachedVer && Date.now() - parseInt(cachedVer) < 86400000) {
+              var parsed = JSON.parse(cached);
+              for (var k in parsed) GAME_ICONS[k] = parsed[k];
+              return;
+            }
+          } catch (e) {}
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', 'https://discord.com/api/v10/applications/detectable');
+          xhr.setRequestHeader('Accept', 'application/json');
+          xhr.onload = function () {
+            if (xhr.status !== 200) return;
+            try {
+              var list = JSON.parse(xhr.responseText);
+              var map = {};
+              for (var i = 0; i < list.length; i++) {
+                var app = list[i];
+                if (app.icon_hash) {
+                  GAME_ICONS[app.id] = app.icon_hash;
+                  map[app.id] = app.icon_hash;
+                }
+              }
+              try {
+                localStorage.setItem('xp_game_icons', JSON.stringify(map));
+                localStorage.setItem('xp_game_icons_ver', String(Date.now()));
+              } catch (e) {}
+            } catch (e) {}
+          };
+          xhr.send();
+        })();
+
         // Resolve image URL from activity art
         function resolveArt(activity, size) {
           var img = activity.assets && activity.assets[size === 'small' ? 'small_image' : 'large_image'];
           var appId = activity.application_id;
-          if (!img || typeof img !== 'string') return null;
+          if (!img || typeof img !== 'string') {
+            if (size !== 'small' && appId && GAME_ICONS[appId]) {
+              return 'https://cdn.discordapp.com/app-icons/' + appId + '/' + GAME_ICONS[appId] + '.png?size=240';
+            }
+            return null;
+          }
           if (img.startsWith('mp:external/')) {
             return img.replace(/^mp:external\/[^/]+\//, '').replace(/^(https?)\//, '$1://');
           }

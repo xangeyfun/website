@@ -363,10 +363,10 @@ img{-webkit-user-drag:none;user-select:none;pointer-events:none}
 .discord-bubble-content{display:flex;flex-direction:column;gap:8px;position:relative;z-index:1}
 .discord-activity-row{display:flex;gap:10px;align-items:flex-start}
 .discord-activity-row + .discord-activity-row{padding-top:8px;border-top:1px solid var(--xp-card-border)}
-.discord-bubble-icon{width:48px;height:48px;border-radius:8px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;position:relative}
-.discord-bubble-icon img{width:100%;height:100%;object-fit:cover;display:block}
+.discord-bubble-icon{width:48px;height:48px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative}
+.discord-bubble-icon > img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;z-index:1;border-radius:8px}
 .discord-bubble-emoji{font-size:28px;line-height:1}
-.discord-bubble-icon-overlay{position:absolute;bottom:-2px;right:-2px;width:22px;height:22px;border-radius:50%;border:2px solid var(--xp-window-body-bg);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.discord-bubble-icon-overlay{position:absolute;bottom:-2px;right:-2px;width:20px;height:20px;border-radius:50%;border:2px solid var(--xp-window-body-bg);overflow:hidden;display:flex;align-items:center;justify-content:center;z-index:2}
 .discord-bubble-icon-overlay img{width:100%;height:100%;object-fit:cover}
 .discord-bubble-text{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}
 .discord-bubble-app{font-size:10px;font-weight:700;color:var(--xp-window-body-text);line-height:1.4}
