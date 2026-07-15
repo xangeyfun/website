@@ -2401,7 +2401,7 @@
   function fetchGitHubRepos() {
     var container = $('#github-repos');
     if (!container) return;
-    fetch('https://api.github.com/users/xangeyfun/repos?sort=updated&per_page=8')
+    fetch('https://api.github.com/users/xangeyfun/repos?sort=updated&per_page=5')
       .then(function (r) { return r.json(); })
       .then(function (repos) {
         if (!Array.isArray(repos)) return;
