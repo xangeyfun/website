@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>451 - Unavailable For Legal Reasons</title>
+  <title>405 - Method Not Allowed</title>
   <meta name="robots" content="noindex, follow">
   <link rel="icon" href="{{ url_for('static', filename='Images/favicon.png') }}" type="image/png">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/xp.css') }}">
@@ -32,7 +32,7 @@
     <div id="wallpaper"></div>
 
     <div id="windows-container">
-      <div class="window active" data-window="error-451" data-w="460" data-h="280" style="z-index:100">
+      <div class="window active" data-window="error-405" data-w="460" data-h="280" style="z-index:100">
         <div class="window-titlebar">
           <div class="window-title">
             <svg viewBox="0 0 16 16" class="window-title-icon"><circle cx="8" cy="8" r="7" fill="#ff4500"/><text x="8" y="12" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">!</text></svg>
@@ -45,11 +45,11 @@
         <div class="window-body">
           <div class="error-content">
             <div class="error-header">
-              <div class="error-icon">&#9878;</div>
+              <div class="error-icon">&#128683;</div>
               <div class="error-text">
-                <div class="error-code">451</div>
-                <h2>Unavailable For Legal Reasons</h2>
-                <p>This content is unavailable due to legal restrictions in your region. Nothing we can do about it.</p>
+                <div class="error-code">405</div>
+                <h2>Method Not Allowed</h2>
+                <p>You used the wrong move. This page doesn't accept what you just tried.</p>
                 <p class="error-excuse" id="reason"></p>
               </div>
             </div>
@@ -75,7 +75,7 @@
         <span>start</span>
       </button>
       <div id="taskbar-windows" role="tablist">
-        <button class="taskbar-btn active" data-window="error-451">
+        <button class="taskbar-btn active" data-window="error-405">
           <svg viewBox="0 0 16 16" style="width:14px;height:14px;vertical-align:middle;margin-right:4px"><circle cx="8" cy="8" r="7" fill="#ff4500"/><text x="8" y="12" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">!</text></svg>
           Explorer
         </button>
@@ -93,7 +93,7 @@
 
   <script>
   (function(){
-    var win = document.querySelector('.window[data-window="error-451"]');
+    var win = document.querySelector('.window[data-window="error-405"]');
     var titlebar = win.querySelector('.window-titlebar');
     var closeBtn = document.getElementById('error-close');
     var trayDark = document.getElementById('tray-dark');
@@ -163,11 +163,11 @@
     document.addEventListener('touchend', endDrag);
 
     var excuses=[
-      "Legal says we can't show you this. Blame the lawyers.",
-      "This content has been redacted by people in suits.",
-      "Error 451: Fahrenheit 451 vibes. The books are gone.",
-      "The page is unavailable for legal reasons. We'd explain but... also legal reasons.",
-      "Somewhere, a lawyer smiled. And you got blocked."
+      "You brought a POST to a GET fight. Wrong move.",
+      "Error 405: The page only accepts certain methods. You used the forbidden one.",
+      "That's like trying to open a push door. It doesn't work that way.",
+      "The server said 'not like that'. Try again with the right method.",
+      "You just tried to microwave a fork. Wrong approach entirely."
     ];
     document.getElementById("reason").textContent = excuses[Math.floor(Math.random() * excuses.length)];
   })();

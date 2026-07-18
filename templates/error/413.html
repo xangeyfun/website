@@ -1,33 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>413 - Payload Too Large</title>
-        <meta name="robots" content="noindex, follow">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-        <link rel="icon" href="{{ url_for('static', filename='Images/favicon.png') }}" type="image/png">
-    </head>
-    <body>
-        <div class="container">
-            <h1>413</h1>
-            <p class="bio" id="reason">coming up with an excuse...</p>
-            <div class="buttons">
-                <a href="/" class="btn" aria-label="Home">
-                    <img src="{{ url_for('static', filename='Images/home.png') }}" alt="Home">
-                </a>
-            </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>413 - Payload Too Large</title>
+  <meta name="robots" content="noindex, follow">
+  <link rel="icon" href="{{ url_for('static', filename='Images/favicon.png') }}" type="image/png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/xp.css') }}">
+  <style>
+    .window{display:none}
+    .window.active{display:flex;flex-direction:column}
+    .error-content{display:flex;flex-direction:column;gap:10px;height:100%}
+    .error-header{display:flex;align-items:flex-start;gap:14px}
+    .error-icon{font-size:40px;flex-shrink:0;line-height:1}
+    .error-text{flex:1}
+    .error-code{font-size:28px;font-weight:700;color:var(--xp-title-top);margin-bottom:2px}
+    .dark-mode .error-code{color:var(--xp-blue-light)}
+    .error-text h2{font-size:13px;font-weight:700;margin-bottom:4px}
+    .error-text p{font-size:11px;line-height:1.5;color:var(--xp-window-body-text)}
+    .error-excuse{font-style:italic;color:var(--xp-body-text2);margin-top:4px;min-height:1.5em}
+    .error-actions{display:flex;justify-content:center;padding-top:8px;border-top:1px solid var(--xp-card-border)}
+    .error-btn{padding:5px 20px;background:linear-gradient(180deg,#f0f0f0 0%,#d4d0c8 50%,#c0bcb4 100%);border:1px solid;border-color:var(--xp-border-light) var(--xp-border-dark) var(--xp-border-dark) var(--xp-border-light);border-radius:4px;font-size:11px;font-family:var(--xp-font);color:#000;cursor:pointer;transition:filter .1s;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+    .error-btn:hover{filter:brightness(1.1)}
+    .error-btn:active{border-color:var(--xp-border-dark) var(--xp-border-light) var(--xp-border-light) var(--xp-border-dark)}
+    .error-btn img{width:14px;height:14px}
+    .error-btn:focus-visible{outline:2px solid var(--xp-highlight);outline-offset:2px}
+  </style>
+</head>
+<body>
+  <div id="desktop">
+    <div id="wallpaper"></div>
+
+    <div id="windows-container">
+      <div class="window active" data-window="error-413" data-w="460" data-h="280" style="z-index:100">
+        <div class="window-titlebar">
+          <div class="window-title">
+            <svg viewBox="0 0 16 16" class="window-title-icon"><circle cx="8" cy="8" r="7" fill="#ff4500"/><text x="8" y="12" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">!</text></svg>
+            <span>Explorer</span>
+          </div>
+          <div class="window-controls">
+            <button class="win-btn close" aria-label="Close" id="error-close">✕</button>
+          </div>
         </div>
-        <script>
-            fetch("https://naas.isalman.dev/no")
-            .then(r => r.json())
-            .then(d => new Promise(resolve => setTimeout(() => resolve(d), 1000)))
-            .then(d => {
-                document.getElementById("reason").textContent = d.reason;
-            });
-        </script>
-    </body>
+        <div class="window-body">
+          <div class="error-content">
+            <div class="error-header">
+              <div class="error-icon">&#128207;</div>
+              <div class="error-text">
+                <div class="error-code">413</div>
+                <h2>Payload Too Large</h2>
+                <p>The request you sent is too large for the server to handle. Try reducing the size and try again.</p>
+                <p class="error-excuse" id="reason"></p>
+              </div>
+            </div>
+            <div class="error-actions">
+              <a href="/" class="error-btn">
+                <img src="{{ url_for('static', filename='Images/home.png') }}" alt="">
+                Back to Desktop
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="taskbar">
+      <button id="start-btn" aria-label="Start" title="Start" disabled style="opacity:0.7;cursor:default">
+        <svg viewBox="0 0 24 24" class="start-logo" aria-hidden="true">
+          <rect x="2" y="2" width="9" height="9" rx="1.5" fill="#ff4500" opacity="0.9"/>
+          <rect x="13" y="2" width="9" height="9" rx="1.5" fill="#32cd32" opacity="0.9"/>
+          <rect x="2" y="13" width="9" height="9" rx="1.5" fill="#4169e1" opacity="0.9"/>
+          <rect x="13" y="13" width="9" height="9" rx="1.5" fill="#ffd700" opacity="0.9"/>
+        </svg>
+        <span>start</span>
+      </button>
+      <div id="taskbar-windows" role="tablist">
+        <button class="taskbar-btn active" data-window="error-413">
+          <svg viewBox="0 0 16 16" style="width:14px;height:14px;vertical-align:middle;margin-right:4px"><circle cx="8" cy="8" r="7" fill="#ff4500"/><text x="8" y="12" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">!</text></svg>
+          Explorer
+        </button>
+      </div>
+      <div id="system-tray">
+        <div id="tray-icons">
+          <button class="tray-icon" id="tray-dark" title="Toggle theme">
+            <svg viewBox="0 0 16 16" width="16" height="16"><path d="M8 2 C12 4 12 12 8 14 C12 12 14 8 12 4 C10 2 8 2 8 2" fill="#fff"/></svg>
+          </button>
+        </div>
+        <div id="clock" title="Current date and time"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    var win = document.querySelector('.window[data-window="error-413"]');
+    var titlebar = win.querySelector('.window-titlebar');
+    var closeBtn = document.getElementById('error-close');
+    var trayDark = document.getElementById('tray-dark');
+    var clock = document.getElementById('clock');
+
+    var darkMode = true;
+    var saved = localStorage.getItem('xp-dark');
+    if (saved !== null) darkMode = saved === '1';
+    document.body.classList.toggle('dark-mode', darkMode);
+
+    trayDark.addEventListener('click', function(){
+      darkMode = !darkMode;
+      document.body.classList.toggle('dark-mode', darkMode);
+      localStorage.setItem('xp-dark', darkMode ? '1' : '0');
+    });
+
+    closeBtn.addEventListener('click', function(){ window.location.href = '/'; });
+
+    function updateClock(){
+      var n = new Date();
+      var h = n.getHours().toString().padStart(2,'0');
+      var m = n.getMinutes().toString().padStart(2,'0');
+      var s = n.getSeconds().toString().padStart(2,'0');
+      clock.textContent = h + ':' + m + ':' + s;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    var ww = parseInt(win.dataset.w) || 460;
+    var wh = parseInt(win.dataset.h) || 280;
+    win.style.left = Math.max(0, (window.innerWidth - ww) / 2) + 'px';
+    win.style.top = Math.max(0, (window.innerHeight - 42 - wh) / 2) + 'px';
+
+    var dragState = null;
+    function startDrag(e){
+      if(e.target.tagName === 'BUTTON') return;
+      var cx = e.clientX || (e.touches && e.touches[0].clientX);
+      var cy = e.clientY || (e.touches && e.touches[0].clientY);
+      if(cx == null) return;
+      var rect = win.getBoundingClientRect();
+      dragState = { ox: cx - rect.left, oy: cy - rect.top };
+      e.preventDefault();
+    }
+    function moveDrag(e){
+      if(!dragState) return;
+      var cx = e.clientX || (e.touches && e.touches[0].clientX);
+      var cy = e.clientY || (e.touches && e.touches[0].clientY);
+      if(cx == null) return;
+      var wr = win.getBoundingClientRect();
+      var nx = cx - dragState.ox;
+      var ny = cy - dragState.oy;
+      nx = Math.max(-wr.width + 60, Math.min(window.innerWidth - 60, nx));
+      ny = Math.max(0, Math.min(window.innerHeight - 50, ny));
+      win.style.left = nx + 'px';
+      win.style.top = ny + 'px';
+      win.style.right = 'auto';
+      win.style.bottom = 'auto';
+      e.preventDefault();
+    }
+    function endDrag(){ dragState = null; }
+
+    titlebar.addEventListener('mousedown', function(e){ if(e.button===0) startDrag(e); });
+    titlebar.addEventListener('touchstart', function(e){ startDrag(e); }, {passive:false});
+    document.addEventListener('mousemove', moveDrag);
+    document.addEventListener('touchmove', moveDrag, {passive:false});
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchend', endDrag);
+
+    var excuses=[
+      "That's what she said. Also, it's too big.",
+      "The server said it can't handle your massive request. Tone it down.",
+      "Your payload has hit the gym a bit too hard.",
+      "Error 413: The server's arms are tired. Your data is too heavy.",
+      "We're gonna need a bigger server. Or you need to diet."
+    ];
+    document.getElementById("reason").textContent = excuses[Math.floor(Math.random() * excuses.length)];
+  })();
+  </script>
+</body>
 </html>

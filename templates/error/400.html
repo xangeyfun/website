@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>451 - Unavailable For Legal Reasons</title>
+  <title>400 - Bad Request</title>
   <meta name="robots" content="noindex, follow">
   <link rel="icon" href="{{ url_for('static', filename='Images/favicon.png') }}" type="image/png">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/xp.css') }}">
@@ -32,7 +32,7 @@
     <div id="wallpaper"></div>
 
     <div id="windows-container">
-      <div class="window active" data-window="error-451" data-w="460" data-h="280" style="z-index:100">
+      <div class="window active" data-window="error-400" data-w="460" data-h="280" style="z-index:100">
         <div class="window-titlebar">
           <div class="window-title">
             <svg viewBox="0 0 16 16" class="window-title-icon"><circle cx="8" cy="8" r="7" fill="#ff4500"/><text x="8" y="12" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">!</text></svg>
@@ -45,11 +45,11 @@
         <div class="window-body">
           <div class="error-content">
             <div class="error-header">
-              <div class="error-icon">&#9878;</div>
+              <div class="error-icon">&#10060;</div>
               <div class="error-text">
-                <div class="error-code">451</div>
-                <h2>Unavailable For Legal Reasons</h2>
-                <p>This content is unavailable due to legal restrictions in your region. Nothing we can do about it.</p>
+                <div class="error-code">400</div>
+                <h2>Bad Request</h2>
+                <p>The server didn't understand what you were trying to say. Maybe try speaking its language?</p>
                 <p class="error-excuse" id="reason"></p>
               </div>
             </div>
@@ -75,7 +75,7 @@
         <span>start</span>
       </button>
       <div id="taskbar-windows" role="tablist">
-        <button class="taskbar-btn active" data-window="error-451">
+        <button class="taskbar-btn active" data-window="error-400">
           <svg viewBox="0 0 16 16" style="width:14px;height:14px;vertical-align:middle;margin-right:4px"><circle cx="8" cy="8" r="7" fill="#ff4500"/><text x="8" y="12" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">!</text></svg>
           Explorer
         </button>
@@ -93,7 +93,7 @@
 
   <script>
   (function(){
-    var win = document.querySelector('.window[data-window="error-451"]');
+    var win = document.querySelector('.window[data-window="error-400"]');
     var titlebar = win.querySelector('.window-titlebar');
     var closeBtn = document.getElementById('error-close');
     var trayDark = document.getElementById('tray-dark');
@@ -163,11 +163,11 @@
     document.addEventListener('touchend', endDrag);
 
     var excuses=[
-      "Legal says we can't show you this. Blame the lawyers.",
-      "This content has been redacted by people in suits.",
-      "Error 451: Fahrenheit 451 vibes. The books are gone.",
-      "The page is unavailable for legal reasons. We'd explain but... also legal reasons.",
-      "Somewhere, a lawyer smiled. And you got blocked."
+      "The server read your request and said 'what?'",
+      "Error 400: Your request had a grammatical error. The server is a grammar Nazi.",
+      "That request was so bad the server is still laughing about it.",
+      "The server tried to understand. It failed. Miserably.",
+      "Even Clippy couldn't figure out what you meant."
     ];
     document.getElementById("reason").textContent = excuses[Math.floor(Math.random() * excuses.length)];
   })();

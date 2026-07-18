@@ -125,6 +125,10 @@ def api_ip():
 
 # Error handlers
 
+@app.errorhandler(400)
+def bad_request(e):
+    return render_template("error/400.html"), 400
+
 @app.errorhandler(401)
 def unauthorized(e):
     return render_template("error/401.html"), 401
@@ -137,9 +141,17 @@ def forbidden(e):
 def not_found(e):
     return render_template("error/404.html"), 404
 
+@app.errorhandler(405)
+def method_not_allowed(e):
+    return render_template("error/405.html"), 405
+
 @app.errorhandler(413)
 def payload_too_large(e):
     return render_template("error/413.html"), 413
+
+@app.errorhandler(422)
+def unprocessable_entity(e):
+    return render_template("error/422.html"), 422
 
 @app.errorhandler(429)
 def too_many_requests(e):
@@ -153,10 +165,6 @@ def unavailable_for_legal_reasons(e):
 def server_error(e):
     return render_template("error/500.html"), 500
 
-@app.errorhandler(502)
-def bad_gateway(e):
-    return render_template("error/502.html"), 502
-
 @app.errorhandler(503)
 def service_unavailable(e):
     return render_template("error/503.html"), 503
@@ -165,7 +173,7 @@ def service_unavailable(e):
 
 @app.route("/error/<int:code>", methods=["GET"])
 def preview_error(code):
-    if code not in [401, 403, 404, 413, 429, 451, 500, 502, 503]:
+    if code not in [400, 401, 403, 404, 405, 413, 422, 429, 451, 500, 503]:
         abort(404)
     return render_template(f"error/{code}.html"), code
 
